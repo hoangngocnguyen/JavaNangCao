@@ -1,0 +1,5 @@
+INDEX VERSION 1.134
+E:\HocTap\ChinhKhoa\Nam3\HK1\JavaNangCao\Projects\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4219223932.index
+\BaiTapBuoi1\src\main\java
+E:\HocTap\ChinhKhoa\Nam3\HK1\JavaNangCao\Projects\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1591368824.index
+\Test\src\main\java

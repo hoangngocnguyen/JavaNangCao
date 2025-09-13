@@ -1,0 +1,16 @@
+package com.hoang;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
+public class DateValidator {
+	public static boolean isValidate(int ngay, int thang, int nam) {
+		try {
+			LocalDate date = LocalDate.of(nam, thang, ngay);
+			return true;
+		} catch (DateTimeParseException e) {
+			return false;
+		}
+		
+	}
+}
