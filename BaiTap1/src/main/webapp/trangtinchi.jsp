@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>Đăng nhập hệ thống</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -33,6 +33,15 @@
 </head>
 
 <body>
+	<%
+		String temp_err = request.getParameter("err");
+		
+		if (temp_err == null ){
+			temp_err = "";
+		}
+	
+	%>
+
     <div class="container ">
         <div class="d-flex items-center justify-center mt-10">
             <div class="flex flex-col items-center">
@@ -49,17 +58,25 @@
                 <h2 class="uppercase !text-blue-500 !text-2xl">Sinh viên</h2>
                 <img src="https://student.husc.edu.vn/Themes/Login/images/logo-small.png"
                     class="w-[54px] absolute top-0 right-4 translate-y-[-50%]" alt="">
-                <form action="">
+                <form action="xuly_trangtinchi.jsp" method="post">
                     <div class="mb-2">
                         <label for="exampleFormControlInput1" class="form-label">Mã sinh viên</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="loginID"
                             placeholder="Mã sinh viên">
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <label for="exampleFormControlInput1" class="form-label">Mật khẩu</label>
-                        <input type="password" class="form-control" id="exampleFormControlInput1"
+                        <input type="password" class="form-control" id="exampleFormControlInput1" name="password"
                             placeholder="Mật khẩu">
                     </div>
+                    
+                <% if (temp_err.equals("1")) {    %>
+                    <div class="text-[14px] text-red-600" role="alert">
+					  Tài khoản hoặc mật khẩu không đúng!
+					</div>
+				<%} %>
+				
+                    <button type="submit" class="mt-2 btn btn-primary w-full">Đăng nhập</button>
                 </form>
             </div>
         </div>

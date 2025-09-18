@@ -20,7 +20,8 @@
 
 <body>
     <div class="container mt-5">
-        <div class="flex gap-4">
+        
+        <form action="ketqua_ngaythang.jsp" method="post">
    			<%
              	Calendar c = Calendar.getInstance();
              	int year = c.get(Calendar.YEAR);
@@ -29,7 +30,8 @@
              	
              	
              %>
-            <select class="form-select" aria-label="Default select example" id="DaySelect">
+            <div class="flex gap-4">
+                <select class="form-select" aria-label="Default select example" id="DaySelect" name="DaySelect">
                 <%
                 	for (int i = 1; i <= 31; i++) {
                 		if (i == day) {
@@ -43,7 +45,7 @@
                 %>
                
             </select>
-            <select class="form-select" aria-label="Default select example" id="MonthSelect">
+            <select class="form-select" aria-label="Default select example" id="MonthSelect" name="MonthSelect">
                 <%
                 	for (int i = 1; i <= 12; i++) {
                 		if (i == month) {
@@ -56,7 +58,7 @@
                 	}
                 %>
             </select>
-            <select class="form-select" aria-label="Default select example" id="YearSelect">
+            <select class="form-select" aria-label="Default select example" id="YearSelect" name="YearSelect">
                 <%
                 	for (int i = year - 10; i <= year; i++) {
                 		if (i == year) {
@@ -69,34 +71,12 @@
                 	}
                 %>
             </select>
-        </div>
+            </div>
         <div class="mt-3 flex justify-end">
-            <button class="btn btn-primary w-40" onclick="handleClick()">Xem kết quả</button>
+            <button type="submit" class="btn btn-primary w-40">Xem kết quả</button>
         </div>
-        <div class="mt-4">
-            Kết quả:<span id="result"></span>
-        </div>
-
-
+        </form>
     </div>
 </body>
-<script>
-    const handleClick = () => {
-        const day = document.getElementById("DaySelect").value;
-        const month = document.getElementById("MonthSelect").value;
-        const year = document.getElementById("YearSelect").value;
-        
-        const result = document.getElementById("result");
-
-        const date = new Date(year, month - 1, day);
-        if (date.getFullYear() != year || (date.getMonth() + 1) != month || date.getDate() != day) {
-            result.innerText = " Ngày tháng năm không hợp lệ";
-            return;
-        }
-       
-        result.innerText = day + "/" + month + "/" + year
-        
-    }
-</script>
 
 </html>

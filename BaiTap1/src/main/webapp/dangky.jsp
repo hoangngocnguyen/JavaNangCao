@@ -162,7 +162,7 @@
             <button type="submit" class="btn w-full mt-4 py-3 !font-bold text-white !bg-[#098642]">Tiếp tục</button>
 
             <div class="mt-3">
-                <a href="#">
+                <a href="dangnhap.jsp">
                     <span class="text-gray-500">Bạn đã có tài khoản?</span> <span href="#"
                         class="font-normal text-[#b6020f]">Đăng nhập ngay</span>
 

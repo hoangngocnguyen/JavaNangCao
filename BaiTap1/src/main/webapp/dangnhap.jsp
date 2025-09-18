@@ -159,7 +159,7 @@
             <button type="submit" class="btn w-full mt-4 py-3 !font-bold text-white !bg-[#098642]">Tiếp tục</button>
 
             <div class="mt-2">
-                <a href="#">
+                <a href="dangky.jsp">
                     <span class="text-gray-500">Bạn chưa có tài khoản?</span> <span href="#"
                         class="font-normal text-[#000] hover:text-[#b6020f]">Đăng ký ngay</span>
 
