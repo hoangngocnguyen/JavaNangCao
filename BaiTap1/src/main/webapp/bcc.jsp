@@ -27,7 +27,7 @@
 
                     </div>
                     <div class="col-9">
-                        <h1>Bảng cửu chương <%=bcc %>
+                        <h1>Bảng cửu chương mới <%=bcc %>
                         </h1>
 
                         <div class="container" style="margin-top: 24px;">
