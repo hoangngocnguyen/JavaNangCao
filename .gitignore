@@ -27,3 +27,4 @@ Thumbs.db
 # Maven Wrapper
 .mvn/
 !/.mvn/wrapper/maven-wrapper.jar
+/.metadata/
