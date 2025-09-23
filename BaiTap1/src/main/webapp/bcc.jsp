@@ -56,7 +56,7 @@
 <body>
     <% 
         String temp_bcc = request.getParameter("bcc"); 
-        int bcc = 1; 
+        int bcc = -1; 
         if (temp_bcc != null) {
             bcc = Integer.parseInt(temp_bcc); 
         } 
@@ -66,7 +66,9 @@
         <div class="row gx-5">
             <!-- Sidebar -->
             <div class="col-3 sidebar">
-                <% for (int i = 1; i < 100; i++) { %>
+                <% 
+                
+                		for (int i = 1; i < 100; i++) { %>
                     <a class="btn w-100 <% if (i == bcc) { out.print(" btn-primary"); } else { out.print(" btn-outline-primary"); } %>" 
                        href="bcc.jsp?bcc=<%= i %>">BCC <%= i %></a>
                 <% } %>
@@ -74,16 +76,19 @@
 
             <!-- Main Content -->
             <div class="col-9">
-                <h1>Bảng cửu chương <%= bcc %></h1>
+                <h1>Bảng cửu chương <% if (bcc>0) out.print(bcc); %></h1>
 
                 <div class="row gx-3">
-                    <% for (int i = 1; i <= 10; i++) { %>
+                    <% 
+                    if (bcc > 0) {
+                    	for (int i = 1; i <= 10; i++) { %>
                         <div class="col-md-4">
                             <div class=" table-cell py-3 text-center">
                                 <strong><%= bcc %> x <%= i %> = <%= bcc * i %></strong>
                             </div>
                         </div>
-                    <% } %>
+                    <% }
+                    	} %>
                 </div>
             </div>
         </div>
