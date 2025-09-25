@@ -66,7 +66,7 @@
                     </div>
                     <div class="mb-1">
                         <label for="exampleFormControlInput1" class="form-label">Mật khẩu</label>
-                        <input type="password" class="form-control" id="exampleFormControlInput1" name="password"
+                        <input type="password" required  class="form-control" id="exampleFormControlInput1" name="password"
                             placeholder="Mật khẩu">
                     </div>
                     
