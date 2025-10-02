@@ -3,14 +3,7 @@
 <%@page import="modal.GioHang"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
-</head>
-<body>
+
 	
 	
 	Giỏ hàng của bạn <hr>
@@ -24,16 +17,16 @@
 	
 		for (GioHang gio : gbo.ds) {
 	%>	
-			<div class="row mb-3 p-2 border-bottom">
+<div class="d-flex mb-3 p-2 border-bottom">
   <!-- Ảnh sách -->
-  <div class="col-2">
+  <div class="" style="width: 60px;">
     <img src="<%=gio.getAnh()%>" alt="<%=gio.getTenSach()%>" class="img-fluid rounded">
   </div>
 
   <!-- Thông tin sách -->
-  <div class="col-10">
-    <div class="fw-bold text-uppercase mb-1">
-      <%=gio.getTenSach()%> - <%=gio.getTacGia()%>
+  <div class="ms-2">
+    <div class=" mb-1">
+      <span class="fw-bold text-uppercase"><%=gio.getTenSach()%></span><span style=""> (Tác giả: <%=gio.getTacGia()%>)</span>
     </div>
 
     <div class="">
@@ -65,7 +58,6 @@
 	<div class="fw-bold fs-5 mt-3">
 	Tổng cộng: <%=gbo.tongTien()%> VNĐ
 	</div>
-</body>
 
 <style>
   .cart-action {
@@ -79,4 +71,4 @@
     color: #fff !important;
     text-decoration: underline;
   }
-</html>
+</style>
