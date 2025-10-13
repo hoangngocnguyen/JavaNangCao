@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
+	<%		
 		String temp_kq = request.getParameter("kq");
 		String temp_a = request.getParameter("a");
 		String temp_b = request.getParameter("b");
@@ -30,10 +30,10 @@
 		
 	%>
 
-	<form action="tinh.jsp">
-		a = <input type="number" name="txta" value=<%=a %>> <hr>
-		b = <input type="number" name="txtb" value=<%=b %>> <hr>
-		Kq = <input type="text" name="txtkq" value=<%=kq %>> <hr>
+	<form action="mayTinhController">
+		a = <input type="number" name="txta" value=<%=request.getAttribute("aa") %>> <hr>
+		b = <input type="number" name="txtb" value=<%=request.getAttribute("bb")%>> <hr>
+		Kq = <input type="text" name="txtkq" value=<%=request.getAttribute("kq")%>> <hr>
        <input type="submit" name="butc" value="+">
        <input type="submit" name="butt" value="-">
        <input type="submit" name="butn" value="*">

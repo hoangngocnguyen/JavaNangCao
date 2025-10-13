@@ -7,12 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
-		// Đăng xuất: xóa session và quay lại trang chủ
-		//if (session.getAttribute("ss") != null) {
-			session.removeAttribute("ss");
-			response.sendRedirect("trangchu.jsp");
-		//}
-	%>
+
 </body>
 </html>

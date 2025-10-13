@@ -1,6 +1,8 @@
 INDEX VERSION 1.134
 E:\HocTap\ChinhKhoa\Nam3\HK1\JavaNangCao\Projects\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1876683420.index
 \BaiTap1\src\main\java
+E:\HocTap\ChinhKhoa\Nam3\HK1\JavaNangCao\Projects\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\863598524.index
+\ExampleCaptcha\src\main\java
 E:\HocTap\ChinhKhoa\Nam3\HK1\JavaNangCao\Projects\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1591368824.index
 \Test\src
 E:\HocTap\ChinhKhoa\Nam3\HK1\JavaNangCao\Projects\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1209689405.index

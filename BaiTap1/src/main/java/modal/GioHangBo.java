@@ -5,17 +5,22 @@ import java.util.ArrayList;
 public class GioHangBo {
 	public ArrayList<GioHang> ds = new ArrayList<GioHang>();
 	
+	
+	public ArrayList<GioHang> getDs() {
+		return ds;
+	}
+	
 	public void them(String maSach, String tenSach, String tacGia, long sl, long gia, String anh) {
 		for (GioHang gio : ds) {
 			if (gio.getMaSach().equals(maSach)) {
-				gio.setSoLuong(sl);
+				gio.setSoLuong(gio.getSoLuong()+1);
 				return;
 			}
 		}
 		GioHang gio = new GioHang(maSach, tenSach, tacGia, sl, gia, anh);
 		ds.add(gio);
 	}
-	public long tongTien() {
+	public long getTongTien() {
 		long sum = 0;
 		for (GioHang gio : ds) {
 			sum += gio.getThanhTien();
@@ -25,6 +30,10 @@ public class GioHangBo {
 	}
 	
 	public void capNhat(String maSach, long sl) {
+		if (sl == 0) {
+			xoa(maSach);
+			return;
+		}
 		for (GioHang gio : ds) {
 			if (gio.getMaSach().equals(maSach)) {
 				gio.setSoLuong(sl);
@@ -35,5 +44,9 @@ public class GioHangBo {
 	}
 	public void xoa(String maSach) {
 		ds.removeIf(gio -> gio.getMaSach().equals(maSach));
+	}
+	
+	public void xoaTatCa() {
+		ds.removeAll(ds);
 	}
 }

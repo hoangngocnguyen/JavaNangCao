@@ -3,5 +3,21 @@
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="tam.Hang"/>
     <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="modal.LoaiDao"/>
+    <fullyQualifiedTypeName name="modal.Loai"/>
+    <fullyQualifiedTypeName name="modal.SachDao"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.lang.Exception"/>
+    <fullyQualifiedTypeName name="modal.GioHang"/>
+    <fullyQualifiedTypeName name="java.security.Principal"/>
+    <fullyQualifiedTypeName name="java.io.PrintWriter"/>
+    <fullyQualifiedTypeName name="jakarta.websocket.Session"/>
+    <fullyQualifiedTypeName name="jakarta.servlet.RequestDispatcher"/>
+    <fullyQualifiedTypeName name="modal.GioHangBo"/>
+    <fullyQualifiedTypeName name="modal.Sach"/>
+    <fullyQualifiedTypeName name="modal.LoaiBo"/>
+    <fullyQualifiedTypeName name="modal.SachBo"/>
+    <fullyQualifiedTypeName name="jakarta.servlet.http.HttpSession"/>
+    <fullyQualifiedTypeName name="controller.Captcha"/>
+    <fullyQualifiedTypeName name="nl.captcha.Captcha"/>
 </qualifiedTypeNameHistroy>
