@@ -1,10 +1,29 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# --------------------
+# Dependencies / Build (Mục tiêu: loại trừ các thư mục lớn)
+# --------------------
 
-### STS ###
+# Loại trừ tất cả các thư mục tên là node_modules, dù nó nằm ở cấp nào
+node_modules/ 
+
+# Loại trừ tất cả các thư mục build của Maven/Gradle
+/target/
+/build/
+
+# Loại trừ các file build/cache của các công cụ khác
+*.log
+*.jar
+*.war
+*.zip
+*.rar
+*.7z
+
+# Maven wrapper
+.mvn/wrapper/maven-wrapper.jar
+
+# --------------------
+# IDE / System files
+# --------------------
+### STS / Eclipse ###
 .apt_generated
 .classpath
 .factorypath
@@ -25,13 +44,13 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
 
-# Spring Boot
+# --------------------
+# Config files (Tùy chọn)
+# --------------------
+# Bảo mật thông tin cấu hình local
 src/main/resources/application.properties
 src/main/resources/application-prod.properties
