@@ -35,7 +35,9 @@ public class ProductService {
     private static final int pageSize = 10;
 
     public List<Product> findProductWithFilter(
-            String search, String priceOption, String minPrice, String maxPrice, String sortPrice, int page
+            String slug, String search, String priceOption,
+            String minPrice, String maxPrice,
+            String sortPrice, int page
     ) {
         int offset = pageSize * (page - 1);
 
@@ -55,10 +57,11 @@ public class ProductService {
             max = new BigDecimal(maxPrice);
         }
 
-        return productRepo.findProductWithFilter(search, min, max, sortPrice, offset, pageSize);
+        return productRepo.findProductWithFilter(slug, search, min, max, sortPrice, offset, pageSize);
     }
 
-    public int getTotalPages(String search, String priceOption, String minPrice, String maxPrice) {
+    // Lấy số sản phẩm lọc được
+    public int getTotalPages(String slug, String search, String priceOption, String minPrice, String maxPrice) {
         BigDecimal min = null;
         BigDecimal max = null;
         if (priceOption != null) {
@@ -73,7 +76,7 @@ public class ProductService {
             min = new BigDecimal(minPrice);
             max = new BigDecimal(maxPrice);
         }
-        long total = productRepo.countProductsWithFilter(search, min, max);
+        long total = productRepo.countProductsWithFilter(slug, search, min, max);
 
         return (int) Math.ceil((double) total / pageSize);
     }

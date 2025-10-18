@@ -16,46 +16,40 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/product")
-    public String getAll(Model model) {
-        model.addAttribute("products", productService.getAll());
-        return "product";
-    }
+//    @GetMapping("/product")
+//    public String getAll(Model model) {
+//        model.addAttribute("products", productService.getAll());
+//        return "product";
+//    }
 
 
-
-
-
-
-
-
-    @GetMapping("/product/{id}")
-    public Product getById(@PathVariable Integer id) {
-        return productService.getById(id);
-    }
-
-    @PostMapping
-    public ResponseEntity<?> create(@RequestBody ProductRequest productRequest) {
-        return ResponseEntity.ok(productService.save(productRequest));
-    }
-
-    @PutMapping("/product/{id}")
-    public Product update(@PathVariable Integer id, @RequestBody ProductRequest productRequest) {
-        return productService.update(id, productRequest);
-    }
-
-    @DeleteMapping("/product/{id}")
-    public void delete(@PathVariable Integer id) {
-        productService.delete(id);
-    }
-
-
-    // Lấy danh sách sản phẩm theo danh mục
-    @GetMapping("/by-category/{id}")
-    public ResponseEntity<List<Product>> getProductsByCategoryId(@PathVariable Integer id) {
-        List<Product> result = productService.getProductsByCategoryId(id);
-
-
-        return ResponseEntity.ok(result);
-    }
+//    @GetMapping("/product/{id}")
+//    public Product getById(@PathVariable Integer id) {
+//        return productService.getById(id);
+//    }
+//
+//    @PostMapping
+//    public ResponseEntity<?> create(@RequestBody ProductRequest productRequest) {
+//        return ResponseEntity.ok(productService.save(productRequest));
+//    }
+//
+//    @PutMapping("/product/{id}")
+//    public Product update(@PathVariable Integer id, @RequestBody ProductRequest productRequest) {
+//        return productService.update(id, productRequest);
+//    }
+//
+//    @DeleteMapping("/product/{id}")
+//    public void delete(@PathVariable Integer id) {
+//        productService.delete(id);
+//    }
+//
+//
+//    // Lấy danh sách sản phẩm theo danh mục
+//    @GetMapping("/by-category/{id}")
+//    public ResponseEntity<List<Product>> getProductsByCategoryId(@PathVariable Integer id) {
+//        List<Product> result = productService.getProductsByCategoryId(id);
+//
+//
+//        return ResponseEntity.ok(result);
+//    }
 }

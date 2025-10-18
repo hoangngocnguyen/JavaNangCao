@@ -14,17 +14,19 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     public List<Product> findByCategory_CategoryId(Integer categoryId);
 
     @Query(value = """
-            select *\s
-            from products p
+            select p.*\s
+            from products p join category c on p.category_id = c.category_id
             where (:minPrice IS NULL OR p.sale_price >= :minPrice)
                AND(:maxPrice IS NULL OR p.sale_price <= :maxPrice)
-               AND (product_name like concat('%', :search, '%'))
+               AND (:search IS NULL OR product_name like concat('%', :search, '%'))
+               AND (:slug IS NULL OR STRCMP(:slug, slug) = 0)
             order by\s
                 CASE WHEN :sortDir = 'asc' THEN p.sale_price END asc,
                 CASE WHEN :sortDir = 'desc' THEN p.sale_price END desc
             limit :offset, :pageSize
            \s""", nativeQuery = true)
     List<Product> findProductWithFilter(
+            @Param("slug") String slug,
             @Param("search") String search,
             @Param("minPrice") BigDecimal minPrice,
             @Param("maxPrice") BigDecimal maxPrice,
@@ -35,12 +37,14 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query(value = """
             select count(*)\s
-                from products p
+                from products p join category c on p.category_id = c.category_id
                 where (:minPrice IS NULL OR p.sale_price >= :minPrice)
                    AND(:maxPrice IS NULL OR p.sale_price <= :maxPrice)
                    AND (product_name like concat('%', :search, '%'))
+                   AND (:slug IS NULL OR STRCMP(:slug, slug) = 0)
            \s""", nativeQuery = true)
     long countProductsWithFilter(
+            @Param("slug") String slug,
             @Param("search") String search,
             @Param("minPrice") BigDecimal minPrice,
             @Param("maxPrice") BigDecimal maxPrice

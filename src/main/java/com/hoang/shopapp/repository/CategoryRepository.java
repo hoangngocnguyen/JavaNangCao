@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
     public Boolean existsByCategoryNameIgnoreCase(String name);
     public Optional<Category> findByCategoryId(int categoryId);
+    public Category findBySlug(String slug);
 
     @Query(value = """
         select c.category_id, category_name, count(p.category_id) as count

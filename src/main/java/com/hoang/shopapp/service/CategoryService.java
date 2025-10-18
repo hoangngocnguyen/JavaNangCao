@@ -23,6 +23,9 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
+    public Category findBySlug(String slug) {
+        return categoryRepository.findBySlug(slug);
+    }
 
     public void delete(Integer id) {
         // Không xóa danh mục đang gắn với sản phẩm.

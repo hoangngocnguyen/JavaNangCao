@@ -22,5 +22,6 @@ public class Category {
     @Column(name = "parent_id")
     private Integer parentId;
 
-
+    @Column(name = "slug", unique = true, nullable = false)
+    private String slug;
 }

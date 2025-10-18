@@ -24,11 +24,10 @@ public class HomeController {
             @RequestParam(defaultValue = "1") int page,
             Model model
     ) {
-        int totalPages = productService.getTotalPages(search, priceOption, minPrice, maxPrice);
+        int totalPages = productService.getTotalPages(null, search, priceOption, minPrice, maxPrice);
 
-        model.addAttribute("products", productService.findProductWithFilter(search, priceOption, minPrice, maxPrice, sortPrice, page));
+        model.addAttribute("products", productService.findProductWithFilter(null, search, priceOption, minPrice, maxPrice, sortPrice, page));
         model.addAttribute("totalPages", totalPages);
-
         model.addAttribute("search", search);
         model.addAttribute("currentPage", page);
         model.addAttribute("sortPrice", sortPrice);
@@ -43,4 +42,6 @@ public class HomeController {
 
         return "index";
     }
+
+//    @GetMapping("/cate")
 }
