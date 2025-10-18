@@ -8,7 +8,7 @@
             <div th:each="product : ${products}"
                 class="flex flex-col h-full bg-white group shadow-md rounded-md overflow-hidden hover:shadow-xl relative hover:top-[-2px] transition duration-300 cursor-pointer">
 
-                <div class="h-56 bg-center bg-contain bg-no-repeat" th:style="'background-image:url(' + ${product.imageSrc} + ')'">
+                <div class="bg-center bg-contain bg-no-repeat pt-[100%]" th:style="'background-image:url(' + ${product.imageSrc} + ')'">
                 </div>
 
                 <div class="p-4 flex flex-col gap-2">

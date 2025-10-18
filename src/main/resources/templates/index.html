@@ -95,8 +95,10 @@
             <h2 class="font-semibold mb-3">Danh mục</h2>
             <ul class="space-y-2">
                 <li th:each="cat : ${categories}">
-                    <a href="#" th:text="${cat.categoryName}"
-                        class="block px-3 py-2 rounded hover:bg-cyan-500 hover:text-white transition-all duration-200 ease-linear"></a>
+                    <a href="javascript:void(0)" th:text="${cat.categoryName}"
+                        th:attr="onclick=|setCategoryAndSubmit('${cat.slug}')|"
+                        class="block px-3 py-2 rounded hover:bg-cyan-500 hover:text-white transition-all duration-200 ease-linear"
+                        th:classappend="${cat.slug == categorySlug} ? 'bg-cyan-500 text-white' : ''"></a>
                 </li>
             </ul>
         </aside>
@@ -108,8 +110,10 @@
                 <h2 class="font-semibold mb-3">Danh mục</h2>
                 <ul class="space-y-2">
                     <li th:each="cat : ${categories}">
-                        <a href="#" th:text="${cat.categoryName}"
-                            class="block px-3 py-2 rounded hover:bg-cyan-500 hover:text-white transition-all duration-200 ease-linear"></a>
+                        <a href="javascript:void(0)" th:text="${cat.categoryName}"
+                            th:attr="onclick=|setCategoryAndSubmit('${cat.slug}')|"
+                            class="block px-3 py-2 rounded hover:bg-cyan-500 hover:text-white transition-all duration-200 ease-linear"
+                            th:classappend="${cat.slug == categorySlug} ? 'bg-cyan-500 text-white' : ''"></a>
                     </li>
                 </ul>
             </aside>
@@ -117,7 +121,19 @@
 
 
         <!-- Layout - right -->
-        <div class="col-span-8">
+        <div class="col-span-10 md:col-span-8">
+
+            <!-- Tag Category nhỏ ở mobile-->
+            <div th:if="${categoryName != '' && categoryName != null}"
+                class="md:hidden max-w-max flex items-center bg-cyan-500 text-white px-3 py-1 rounded-full shadow-md text-sm font-semibold">
+                <span th:text="${categoryName}"></span>
+
+                <a href="javascript:void(0)" onclick="resetCategoryAndSubmit()"
+                    class="ml-2 font-bold text-lg hover:text-gray-200 transition-colors">
+                    &times;
+                </a>
+            </div>
+
             <!-- Bộ lọc sản phẩm -->
             <form method="GET" action="/products" id="filterForm" onsubmit="return handleSubmitForm()">
                 <section x-data="{
@@ -136,6 +152,7 @@
     }" class="bg-white rounded-lg shadow p-4 flex flex-wrap gap-4 items-center justify-between">
 
                     <!-- Inputs hidden -->
+                    <input id="categorySlug" type="hidden" name="categorySlug" th:value="${categorySlug}">
                     <input id="sortPrice" type="hidden" name="sortPrice" th:value="${sortPrice}">
                     <input type="hidden" id="priceOption" name="priceOption" th:value="${priceOption}">
                     <input type="hidden" id="minPrice" name="minPrice" th:value="${minPrice}">
@@ -149,7 +166,7 @@
                                 class="flex items-center gap-2 border border-gray-300 rounded-lg px-3 py-2 text-sm hover:bg-gray-100">
                                 <i class="fa-solid fa-arrow-up-wide-short text-gray-500"></i>
                                 <span
-                                    th:text="${(sortPrice == null || sortPrice == '') ? 'Mặc định' : sortPrice =='asc' ? 'Giá tăng dần' : 'Giá giảm dần'}"></span>
+                                    th:text="${(sortPrice == null || sortPrice == '') ? 'Mặc định' : sortPrice == 'asc' ? 'Giá tăng dần' : 'Giá giảm dần'}"></span>
                                 <i class="fa-solid fa-chevron-down text-xs ml-1"></i>
                             </button>
                             <div x-show="sortOpen" @click.outside="sortOpen=false" x-transition.origin.top.left
@@ -369,6 +386,9 @@
         .animate-slideOutLeft { animation: slideOutLeft 0.3s ease-in forwards; }
     </style>
 
+
+
+
     <!-- Script toggle sidebar trên mobile -->
     <script>
         const menuToggle = document.getElementById('menuToggle');
@@ -407,148 +427,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.7.1/dist/nouislider.min.css">
     <script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.1/dist/nouislider.min.js"></script>
 
-    <script>
-        const slider = document.getElementById('price-slider');
-        const min = document.getElementById('price-min');
-        const max = document.getElementById('price-max');
 
-        // Lấy các input ẩn
-        const minPrice = document.getElementById('minPrice');
-        const maxPrice = document.getElementById('maxPrice');
-
-        // Lấy giá trị khởi tạo cho range
-        const initialMin = Number(minPrice.value) || 0;
-        const initialMax = Number(maxPrice.value) || 100000000;
-
-        noUiSlider.create(slider, {
-            start: [initialMin, initialMax],    // <-- SỬ DỤNG GIÁ TRỊ TỪ THYMELEAF
-            connect: true,
-            range: {
-                'min': 0,
-                'max': 100000000
-            },
-            step: 100000,
-            tooltips: true,
-            format: {
-                to: function (value) {
-                    return Math.round(value).toLocaleString('vi-VN') + ' ₫';
-                },
-                from: function (value) {
-                    return Number(value.replace(/\D/g, ''));
-                }
-            }
-        });
-
-
-
-        slider.noUiSlider.on('change', (values, handle) => {
-
-            if (handle === 0) {
-                min.textContent = values[0];
-            } else {
-                max.textContent = values[1];
-            }
-
-            // Cập nhật rangePrice input
-            const minPrice = document.getElementById('minPrice');
-            const maxPrice = document.getElementById('maxPrice');
-
-
-            // Lấy giá trị số nguyên, không format, để gửi backend
-            // vì hàm format đã đảm bảo values[i] là giá trị đã được xử lý (chuỗi đã format).
-            // Dùng hàm `from` của format để lấy giá trị số nguyên:
-            const rawMin = slider.noUiSlider.options.format.from(values[0]);
-            const rawMax = slider.noUiSlider.options.format.from(values[1]);
-
-            minPrice.value = rawMin;
-            maxPrice.value = rawMax;
-
-            // Nếu slider được kéo, reset priceOption (để đảm bảo chỉ có rangePrice được gửi)
-            document.getElementById('priceOption').value = '';
-        });
-
-        // Lắng nghe sự kiện 'update' để CẬP NHẬT TEXT khi người dùng kéo
-        slider.noUiSlider.on('update', (values, handle) => {
-            // Cập nhật text content trực tiếp
-            min.textContent = values[0];
-            max.textContent = values[1];
-
-            // **QUAN TRỌNG:** KHÔNG CẬP NHẬT input ẩn ở đây!
-            // ...
-        });
-
-
-        // Set value cho input sortPrice khi submit button
-        function setSortAndSubmit(sortValue) {
-            // 1. Cập nhật giá trị của trường ẩn
-            document.getElementById('sortPrice').value = sortValue;
-
-            // 3. Gửi form
-            document.getElementById('filterForm').submit();
-        }
-
-        const setPriceOptionAndSubmit = (optionParam) => {
-            console.log(optionParam);
-
-            document.getElementById('priceOption').value = optionParam;
-
-            // 2. Logic loại trừ: Reset Range Slider input (quan trọng!)
-            document.getElementById('minPrice').value = '';
-            document.getElementById('maxPrice').value = '';
-
-            document.getElementById('filterForm').submit();
-        }
-
-
-        /**
-         * Chạy trước khi form submit
-         * Vô hiệu hóa các trường rỗng để không hiển thị lên URL
-         */
-        const handleSubmitForm = () => {
-            const search = document.getElementById('search');
-            const sortPrice = document.getElementById('sortPrice');
-
-            const minPrice = document.getElementById('minPrice');
-            const maxPrice = document.getElementById('maxPrice');
-            const priceOption = document.getElementById('priceOption');
-
-            // === Logic loại trừ lẫn nhau và vô hiệu hóa
-            if (search.value === '') {
-                search.disabled = true;
-            }
-
-            if (sortPrice.value === '') {
-                sortPrice.disabled = true;
-            }
-
-            if (priceOption.value === '') {
-                priceOption.disabled = true;
-            }
-
-            if (minPrice.value === '') {
-                minPrice.disabled = true;
-            }
-
-            if (maxPrice.value === '') {
-                maxPrice.disabled = true;
-            }
-
-            return true;
-        }
-
-        const formatPrice = (price) => {
-            return Math.round(price).toLocaleString('vi-VN') + ' ₫';
-        }
-
-        // Tách rangePrice
-        const parseRangePrice = (rangePrice) => {
-            parts = rangePrice.split('-');
-
-            return `${formatPrice(parts[0])} - ${formatPrice(parts[1])}`
-        }
-
-    </script>
-
+    <!-- Script chính của trang -->
+    <script th:src="@{/index.js}"></script>
 
     <style>
         /* style noUiSlider */
