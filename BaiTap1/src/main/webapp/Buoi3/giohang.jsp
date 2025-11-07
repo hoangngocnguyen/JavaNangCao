@@ -12,9 +12,24 @@
 Giỏ hàng của bạn
 <hr>
 
+<c:if test="${not empty sessionScope.gh.ds }">
+	<form id="form-checkbox" method="post" action="GioHangController"
+		class="mb-3">
+		<button type="submit" name="action" value="remove" class="btn btn-outline-danger btn-sm">
+			Xóa sản phẩm đã chọn</button>
+	</form>
+</c:if>
+
+<c:if test="${empty sessionScope.gh.ds }">
+	<h5>Giỏ hàng của bạn đang trống!</h5>
+</c:if>
 
 <c:forEach var="gio" items="${ sessionScope.gh.ds}">
 	<div class="d-flex mb-3 p-2 border-bottom">
+		<div style="width: 40px" class="d-flex align-items-center">
+			<input type="checkbox" name="checkboxDelete" value="${gio.maSach }"
+				form="form-checkbox" />
+		</div>
 		<!-- Ảnh sách -->
 		<div class="" style="width: 60px;">
 			<img src="${ gio.anh}" alt="${ gio.tenSach}"
@@ -25,15 +40,14 @@ Giỏ hàng của bạn
 		<div class="ms-2">
 			<div class=" mb-1">
 				<span class="fw-bold text-uppercase">${ gio.tenSach}</span><span
-					style=""> (Tác giả: ${ gio.tacGia})
-				</span>
+					style=""> (Tác giả: ${ gio.tacGia}) </span>
 			</div>
 
 			<div class="">
-				<span class="me-2">Giá:</span> 
-				<span style="color: #6d2524;" class="fw-bold me-2">
-					<fmt:formatNumber type="number" value="${gio.gia }"/>
-					đ</span> <span class="me-2">x</span>
+				<span class="me-2">Giá:</span> <span style="color: #6d2524;"
+					class="fw-bold me-2"> <fmt:formatNumber type="number"
+						value="${gio.gia }" /> đ
+				</span> <span class="me-2">x</span>
 
 				<!-- Form cập nhật -->
 				<form action="GioHangController?update=true&ms=${gio.maSach }"
@@ -48,7 +62,7 @@ Giỏ hàng của bạn
 				<!-- Form trả lại -->
 				<form action="GioHangController?remove=true&ms=${gio.maSach }"
 					method="post" class="d-inline ms-2">
-					<button type="submit" class="btn btn-link cart-action p-0">Trả
+					<button  type="submit"  class="btn btn-link cart-action p-0">Trả
 						lại</button>
 				</form>
 			</div>
@@ -63,11 +77,14 @@ Giỏ hàng của bạn
 
 
 <!-- Tổng cộng -->
-<div class="fw-bold fs-5 mt-3">
-	Tổng cộng:
-	<fmt:formatNumber type="number" value="${sessionScope.gh.tongTien }"/>
-	VNĐ
-</div>
+<c:if test="${not empty sessionScope.gh.ds }">
+	<div class="fw-bold fs-5 mt-3">
+		Tổng cộng:
+		<fmt:formatNumber type="number" value="${sessionScope.gh.tongTien}" />
+		VNĐ
+	</div>
+</c:if>
+
 <hr>
 
 <div class="d-flex justify-content-center gap-3">
@@ -79,10 +96,10 @@ Giỏ hàng của bạn
 		<a class="text-decoration-none text-secondary-emphasis"
 			href="TrangChuController">Tiếp tục mua hàng</a>
 	</div>
-	<div class="rounded border border-secondary p-2"
-		style="background-color: #6d2524;">
-		<a class="text-decoration-none text-light" href="">Thanh toán</a>
-	</div>
+	<button class="rounded border border-secondary p-2 text-white"
+		style="background-color: #6d2524;"
+		type="submit" form="form-checkbox" name="action" value="checkout">Đặt hàng
+	</button>
 </div>
 
 <style>

@@ -3,16 +3,23 @@ package modal;
 import java.util.ArrayList;
 
 public class GioHangBo {
-	public ArrayList<GioHang> ds = new ArrayList<GioHang>();
-	
+	private ArrayList<GioHang> ds = new ArrayList<GioHang>();
 	
 	public ArrayList<GioHang> getDs() {
 		return ds;
 	}
 	
+	public GioHang timGioHangTheoMa(String maSach) {
+	    for (GioHang item : ds) {
+	        if (item.getMaSach().equalsIgnoreCase(maSach)) {
+	            return item;
+	        }
+	    }
+	    return null;
+	}
 	public void them(String maSach, String tenSach, String tacGia, long sl, long gia, String anh) {
 		for (GioHang gio : ds) {
-			if (gio.getMaSach().equals(maSach)) {
+			if (gio.getMaSach().trim().toLowerCase().equals(maSach.trim().toLowerCase())) {
 				gio.setSoLuong(gio.getSoLuong()+1);
 				return;
 			}

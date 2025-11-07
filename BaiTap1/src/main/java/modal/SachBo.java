@@ -11,6 +11,16 @@ public class SachBo {
 		return ds;
 	}
 	
+	public ArrayList<Sach> locSachPhanTrang(String maLoaiParam, String search, int page) throws Exception {
+		final int pageSize = 8;
+		int offset = pageSize * (page - 1);
+		return sachDao.locSachPhanTrang(maLoaiParam, search, offset, pageSize);
+	}
+	
+	public int getTotalPages(String maLoaiParam, String search) throws Exception {
+		return sachDao.getTotalPages(maLoaiParam, search);
+	}
+	
 	public ArrayList<Sach> getSach(String maLoai) throws Exception {
 		// Dùng list mới
 		ArrayList<Sach> lst = new ArrayList<Sach>();

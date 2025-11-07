@@ -7,9 +7,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import modal.LoaiBo;
+import modal.Sach;
 import modal.SachBo;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Servlet implementation class TrangChuController
@@ -41,29 +43,51 @@ public class TrangChuController extends HttpServlet {
 		// Danh sách sản phẩm
 		SachBo sachBo = new SachBo();
 		
+		// Phân trang lọc sản phẩm:
+		// + maLoai, search, bấm nút phân trang (thẻ link)
+		
 		String maLoai = request.getParameter("maLoai");
       	String search = request.getParameter("search");
+      	String pageParam = request.getParameter("page");
       	
-		try {
-			request.setAttribute("dsLoai", loaiBo.getLoai());
-			request.setAttribute("dsSach", sachBo.getSach());
-			
-			if (maLoai != null) {
-	      		try {
-					request.setAttribute("dsSach", sachBo.getSach(maLoai));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}      
-	      	}
-	      	
-	      	if (search != null) {
-	      		try {
-					request.setAttribute("dsSach", sachBo.timSach(search));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-	      	}
+      	// Nếu lần đầu vào trang cho page = 1;
+      	int page = 1;
+      	if (pageParam != null) {
+      		page = Integer.parseInt(pageParam); 
+      	}
+      	
+      	// Mặc định size để 8
+      	int pageSize = 8;
+      	
+      	ArrayList<Sach> dsSach = new ArrayList<Sach>();
+      	// Tiến hành lọc
+      	try {
+      		dsSach = sachBo.locSachPhanTrang(maLoai, search, page);
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+      	
+      	// Trả về các tham số
+      	request.setAttribute("maLoai", maLoai);
+      	request.setAttribute("search", search);
+      	request.setAttribute("page", page);
+      	
+      	int totalPages = 0;
+		try {
+			totalPages = sachBo.getTotalPages(maLoai, search);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+      	request.setAttribute("totalPages", totalPages); // TỔNG SỐ TRANG
+      	request.setAttribute("pageIndexHienTai", page); // Đổi tên biến cho rõ ràng
+      	
+      	request.setAttribute("dsSach", dsSach);
+      	try {
+			request.setAttribute("dsLoai", loaiBo.getLoai());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

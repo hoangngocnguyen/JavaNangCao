@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import modal.KhachHang;
+import modal.KhachHangBo;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -64,21 +66,34 @@ public class DangNhapController extends HttpServlet {
 		}
 
 		// Kiểm tra login
+		KhachHangBo khBo = new KhachHangBo();
 		if (username != null && password != null) {
-			if ("admin".equals(username) && "admin".equals(password)) {
-				session.removeAttribute("loginAttempts");
-				session.setAttribute("ss", username);
-				
-				response.sendRedirect("TrangChuController");
-				
-				return;
-			} else {
-				loginAttempts++;
-				session.setAttribute("loginAttempts", loginAttempts);
-				
-				request.setAttribute("username", username);
-				request.setAttribute("password", password);
-				request.setAttribute("err", "Sai tên đăng nhập hoặc mật khẩu");
+			try {
+				KhachHang kh = khBo.ktDangNhap(username, password);
+				if ( kh != null) {
+					session.removeAttribute("loginAttempts");
+					
+					// Lưu khách hàng vào session
+					session.setAttribute("ss", kh);
+					request.setAttribute("username", username);
+					request.setAttribute("password", password);
+					
+					response.sendRedirect("TrangChuController");
+					
+					return;
+				} else {
+					loginAttempts++;
+					session.setAttribute("loginAttempts", loginAttempts);
+					
+					request.setAttribute("username", username);
+					request.setAttribute("password", password);
+					request.setAttribute("err", "Sai tên đăng nhập hoặc mật khẩu");
+				}
+			} catch (RuntimeException e) {
+				System.out.println(e.getMessage());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 

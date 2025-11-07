@@ -25,7 +25,7 @@
 		<div class="card shadow p-4" style="width: 100%; max-width: 400px;">
 			<h3 class="text-center mb-4">Đăng nhập</h3>
 
-			<form action="/BaiTap1/DangNhapController" method="post">
+			<form action="/DangNhapController" method="post">
 				<div class="mb-3">
 					<label class="form-label">Tên đăng nhập</label> <input type="text"
 						class="form-control" name="username" required value="${requestScope.username }">

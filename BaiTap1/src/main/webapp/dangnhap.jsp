@@ -49,6 +49,7 @@
 
         #eye {
             width: 16px;
+            cursor: pointer;
         }
         #eye #eye-close {
             display: none;

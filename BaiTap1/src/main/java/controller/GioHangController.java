@@ -35,6 +35,8 @@ public class GioHangController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String maSach = request.getParameter("ms");
+		
+		System.out.println("masach" + maSach);
 		HttpSession session = request.getSession();
 
 		if (session.getAttribute("gh") == null) {
@@ -42,7 +44,6 @@ public class GioHangController extends HttpServlet {
 		}
 
 		SachBo sbo = new SachBo();
-		GioHangBo gbo = new GioHangBo();
 
 		GioHangBo gio = (GioHangBo) session.getAttribute("gh");
 
@@ -79,12 +80,33 @@ public class GioHangController extends HttpServlet {
 
 		}
 
+		
 		// Xóa hết giỏ hàng:
 		String deletedAll = request.getParameter("deleted");
 		if (deletedAll != null && deletedAll.equals("all")) {
 			gio.xoaTatCa();
 		}
-
+		
+		
+		// XỬ LÝ List Checkbox: xóa - checkout
+		// Xóa sản phẩm đã chọn trong checkbox
+		String[] listCheckbox = request.getParameterValues("checkboxDelete");
+		String action = request.getParameter("action");
+		
+		if ("remove".equals(action)) {
+			if (listCheckbox != null) {
+				for (String ma : listCheckbox) {
+					gio.xoa(ma);
+				}
+			}
+		} else if ("checkout".equals(action)) {
+			// CHuyển đến HoaDonController xử lý
+			request.setAttribute("dsMaSach", listCheckbox);
+			RequestDispatcher rd = request.getRequestDispatcher("/HoaDonController");
+			rd.forward(request, response);
+			return;
+		}
+		
 		session.setAttribute("gh", gio);
 		response.sendRedirect("TrangChuController?q=cart");
 	}
