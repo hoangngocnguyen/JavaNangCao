@@ -1,0 +1,29 @@
+# Eclipse specific files
+.classpath
+.project
+.settings/
+
+# Build directories
+bin/
+target/
+
+# IDE specific files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Java specific
+*.class
+*.jar
+*.war
+*.ear
+
+# Maven Wrapper
+.mvn/
+!/.mvn/wrapper/maven-wrapper.jar

@@ -3,8 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="modal.GioHangBo"%>
-<%@page import="modal.GioHang"%>
+<%@page import="modal.GioHang.GioHangBo"%>
+<%@page import="modal.GioHang.GioHang"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -13,7 +13,7 @@ Giỏ hàng của bạn
 <hr>
 
 <c:if test="${not empty sessionScope.gh.ds }">
-	<form id="form-checkbox" method="post" action="GioHangController"
+	<form id="/"
 		class="mb-3">
 		<button type="submit" name="action" value="remove" class="btn btn-outline-danger btn-sm">
 			Xóa sản phẩm đã chọn</button>
@@ -94,7 +94,7 @@ Giỏ hàng của bạn
 	</div>
 	<div class="rounded border border-secondary p-2">
 		<a class="text-decoration-none text-secondary-emphasis"
-			href="TrangChuController">Tiếp tục mua hàng</a>
+			href="/">Tiếp tục mua hàng</a>
 	</div>
 	<button class="rounded border border-secondary p-2 text-white"
 		style="background-color: #6d2524;"

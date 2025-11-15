@@ -30,7 +30,7 @@
 		
 	%>
 
-	<form action="mayTinhController">
+	<form action="/">
 		a = <input type="number" name="txta" value=<%=request.getAttribute("aa") %>> <hr>
 		b = <input type="number" name="txtb" value=<%=request.getAttribute("bb")%>> <hr>
 		Kq = <input type="text" name="txtkq" value=<%=request.getAttribute("kq")%>> <hr>

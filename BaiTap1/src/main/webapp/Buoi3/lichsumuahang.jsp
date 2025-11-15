@@ -27,7 +27,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container">
-			<a class="navbar-brand" href="TrangChuController">Hoàng Shop</a>
+			<a class="navbar-brand" href="/">Hoàng Shop</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
 				aria-controls="navbarNavDropdown" aria-expanded="false"
@@ -40,7 +40,7 @@
 					<li class="nav-item"><a class="nav-link"
 						href="/LichSuMuaHang">Lịch sử mua</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="TrangChuController?q=cart">Giỏ hàng</a></li>
+						href="/?q=cart">Giỏ hàng</a></li>
 						
 					<c:if test="${sessionScope.ss.tendn == 'admin'}">
 						<li class="nav-item"><a class="nav-link"
@@ -51,16 +51,16 @@
 					<c:choose>
 						<c:when test="${empty sessionScope.ss }">
 							<li class="nav-item"><a class="nav-link"
-								href="DangNhapController">Đăng nhập</a></li>
+								href="/DangNhap">Đăng nhập</a></li>
 						</c:when>
 						<c:otherwise>
 							<li class="nav-item"><a class="nav-link"
-								href="DangXuatController">Đăng xuất</a></li>
+								href="/">Đăng xuất</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
 
-				<form action="TrangChuController" method="get" id="filterForm"
+				<form action="/" method="get" id="filterForm"
 					class="d-flex me-auto" role="search"
 					onsubmit="return optimizeForm()">
 
@@ -130,7 +130,7 @@
                                     </button>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="HoaDonController?mahd=${ls.maHoaDon}&action=pay" class="btn btn-primary btn-sm">
+                                    <a href="ThanhToan?ma=${ls.maChiTietHoaDon}" class="btn btn-primary btn-sm">
                                         <i class="fas fa-credit-card"></i> Thanh Toán Ngay
                                     </a>
                                 </c:otherwise>
@@ -140,7 +140,7 @@
                 </div>
                 
                 <div class="card-footer text-end text-muted small">
-                    Mã khách hàng: ${ls.makh} | Mã hóa đơn chi tiết: ${ls.maHoaDon}
+                    Mã khách hàng: ${ls.makh} | Mã hóa đơn chi tiết: #${ls.maChiTietHoaDon}
                 </div>
             </div>
             
@@ -180,7 +180,7 @@
 							>Trước</a>
 						</li>
 
-						<%-- Hiển thị nút "..." nếu cần --%>
+						<%-- Hiển thị nút "..." nếu cần [1]...[n]--%>
 						<c:if test="${beginPage > 1}">
 							<li class="page-item"><a class="page-link" href="/LichSuMuaHang?page=1" >1</a></li>
 							<c:if test="${beginPage > 2}">

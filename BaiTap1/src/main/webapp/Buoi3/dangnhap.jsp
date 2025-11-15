@@ -15,7 +15,7 @@
 	<!-- Navbar -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/TrangChuController">Trang chủ</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/">Trang chủ</a>
 		</div>
 	</nav>
 
@@ -25,7 +25,7 @@
 		<div class="card shadow p-4" style="width: 100%; max-width: 400px;">
 			<h3 class="text-center mb-4">Đăng nhập</h3>
 
-			<form action="/DangNhapController" method="post">
+			<form action="/DangNhap" method="post">
 				<div class="mb-3">
 					<label class="form-label">Tên đăng nhập</label> <input type="text"
 						class="form-control" name="username" required value="${requestScope.username }">
@@ -54,6 +54,9 @@
 
 				<button type="submit" class="btn btn-primary w-100 mt-2">Đăng
 					nhập</button>
+				<div class="mt-3 text-center">
+				Chưa có tài khoản? <a href="/DangKy">Đăng ký ngay</a>
+				</div>
 			</form>
 		</div>
 	</div>

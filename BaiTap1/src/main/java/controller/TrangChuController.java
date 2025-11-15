@@ -1,22 +1,22 @@
 package controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import modal.LoaiBo;
-import modal.Sach;
-import modal.SachBo;
-
-import java.io.IOException;
-import java.util.ArrayList;
+import modal.Loai.LoaiBo;
+import modal.Sach.Sach;
+import modal.Sach.SachBo;
 
 /**
  * Servlet implementation class TrangChuController
  */
-@WebServlet("/TrangChuController")
+@WebServlet("/")
 public class TrangChuController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -50,6 +50,8 @@ public class TrangChuController extends HttpServlet {
       	String search = request.getParameter("search");
       	String pageParam = request.getParameter("page");
       	
+//      	System.out.println(maLoai + "s-" + search + "p" + pageParam);
+      	
       	// Nếu lần đầu vào trang cho page = 1;
       	int page = 1;
       	if (pageParam != null) {
@@ -72,6 +74,8 @@ public class TrangChuController extends HttpServlet {
       	request.setAttribute("maLoai", maLoai);
       	request.setAttribute("search", search);
       	request.setAttribute("page", page);
+      	
+      	
       	
       	int totalPages = 0;
 		try {

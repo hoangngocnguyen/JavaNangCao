@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.IOException;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,16 +9,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import modal.GioHangBo;
-import modal.Sach;
-import modal.SachBo;
-
-import java.io.IOException;
+import modal.GioHang.GioHangBo;
+import modal.Sach.Sach;
+import modal.Sach.SachBo;
 
 /**
  * Servlet implementation class GioHangController
  */
-@WebServlet("/GioHangController")
+@WebServlet("/GioHang")
 public class GioHangController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -100,15 +100,15 @@ public class GioHangController extends HttpServlet {
 				}
 			}
 		} else if ("checkout".equals(action)) {
-			// CHuyển đến HoaDonController xử lý
+			// CHuyển đến HoaDon xử lý
 			request.setAttribute("dsMaSach", listCheckbox);
-			RequestDispatcher rd = request.getRequestDispatcher("/HoaDonController");
+			RequestDispatcher rd = request.getRequestDispatcher("/HoaDon");
 			rd.forward(request, response);
 			return;
 		}
 		
 		session.setAttribute("gh", gio);
-		response.sendRedirect("TrangChuController?q=cart");
+		response.sendRedirect("/?q=cart");
 	}
 
 	/**

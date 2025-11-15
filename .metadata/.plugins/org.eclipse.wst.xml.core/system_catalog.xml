@@ -726,4 +726,5 @@
   <uri name="javaee_5.xsd" uri="jar:file:/C:/Users/nguye/eclipse/java-2024-12/eclipse/../../../.p2/pool/plugins/org.jboss.tools.jst.web_3.10.500.v20230911-1226.jar!/catalog/javaee_5.xsd"/>
   <uri name="http://java.sun.com/xml/ns/javaee/web-facelettaglibary_2_0.xsd" uri="jar:file:/C:/Users/nguye/eclipse/java-2024-12/eclipse/../../../.p2/pool/plugins/org.jboss.tools.jst.web_3.10.500.v20230911-1226.jar!/catalog/web-facelettaglibrary_2_0.xsd"/>
   <uri name="http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd" uri="jar:file:/C:/Users/nguye/eclipse/java-2024-12/eclipse/../../../.p2/pool/plugins/org.jboss.tools.jst.web_3.10.500.v20230911-1226.jar!/catalog/web-facelettaglibrary_2_0.xsd"/>
+  <public publicId="-//LOG4J//DTD LOG4J//EN" uri="jar:file:/C:/Users/nguye/eclipse/java-2024-12/eclipse/../../../.p2/pool/plugins/org.springsource.ide.eclipse.commons.ui_4.32.1.202510250117.jar!/dtd/log4j-1.2.dtd" webURL="https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd"/>
 </catalog>

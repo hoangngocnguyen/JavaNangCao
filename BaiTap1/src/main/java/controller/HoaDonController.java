@@ -1,5 +1,8 @@
 package controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,18 +10,16 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import modal.GioHang;
-import modal.GioHangBo;
-import modal.HoaDonBo;
-import modal.KhachHang;
-
-import java.io.IOException;
-import java.util.ArrayList;
+import modal.GioHang.GioHang;
+import modal.GioHang.GioHangBo;
+import modal.HoaDon.HoaDonBo;
+import modal.KhachHang.KhachHang;
+import utils.TaskExecutor;
 
 /**
  * Servlet implementation class HoaDonConTroller
  */
-@WebServlet("/HoaDonController")
+@WebServlet("/HoaDon")
 public class HoaDonController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +37,7 @@ public class HoaDonController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// *** Khi người dùng bấm nút thanh toán trong trang giỏ hàng
+		// *** Khi người dùng bấm nút thanh toán trong trang giỏ hàng, chuyển hướng đến đây
 
 		// Lấy danh sách giỏ hàng từ session
 		HttpSession session = request.getSession();
@@ -48,7 +49,10 @@ public class HoaDonController extends HttpServlet {
 		// Kiểm tra khách hàng: nếu chưa đăng nhập -> chuyển qua trang đăng nhập
 
 		if (kh == null) {
-			response.sendRedirect("/DangNhapController");
+			response.sendRedirect("/DangNhap");
+			
+			// Lưu trang trước đó vào session
+			session.setAttribute("page", "/GioHang");
 			return;
 		}
 
@@ -61,7 +65,7 @@ public class HoaDonController extends HttpServlet {
 		
 		// Kiểm tra nếu ds == 0 ~ là chưa mua gì
 		if (dsMaSach == null) {
-			response.sendRedirect("/GioHangController");
+			response.sendRedirect("/GioHang");
 			return;
 		}
 
@@ -74,13 +78,33 @@ public class HoaDonController extends HttpServlet {
 		}
 
 		try {
-			hoaDonBo.taoHoaDonVaChiTiet(kh.getMakh(), dsMua);
+			Integer maHoaDon = hoaDonBo.taoHoaDonVaChiTiet(kh.getMakh(), dsMua);
+			
+			
+			// 2. Định nghĩa tác vụ Gửi Email (Runnable)
+			Runnable mailTask = () -> {
+				try {
+					// Gửi email cho người dùng thông báo đặt hàng thành công
+					// Lấy thông tin từ hóa đơn + chi tiết hóa đơn
+					
+					hoaDonBo.guiEmailThongBaoDatHangThanhCong(kh, maHoaDon);
+				} catch (Exception e) {
+					System.err.println("Lỗi gửi email bất đồng bộ cho đơn hàng " + maHoaDon + ": " + e.getMessage());
+	                // (Tùy chọn: Có thể thử gửi lại sau, hoặc lưu vào DB để xử lý sau)
+				}
+			};
+			
+			// 3. Gửi tác vụ vào Thread Pool và giải phóng thread chính
+			TaskExecutor.submitMailTask(mailTask);
+			
+			
 		} catch (Exception e) {
-			response.sendRedirect("/GioHangController");
+			response.sendRedirect("/GioHang");
 			e.printStackTrace();
 			return;
 		}
-
+		
+		// CHuyển hướng người dùng (~ thread chính kết thúc)
 		RequestDispatcher rd = request.getRequestDispatcher("/LichSuMuaHang");
 		rd.forward(request, response);
 	}

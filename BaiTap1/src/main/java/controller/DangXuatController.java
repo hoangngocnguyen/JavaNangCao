@@ -1,16 +1,17 @@
 package controller;
 
+import java.io.IOException;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * Servlet implementation class DangXuatController
  */
-@WebServlet("/DangXuatController")
+@WebServlet("/DangXuat")
 public class DangXuatController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,7 +29,7 @@ public class DangXuatController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Xóa session
 		request.getSession().removeAttribute("ss");
-		response.sendRedirect("TrangChuController");
+		response.sendRedirect("/");
 	}
 
 	/**

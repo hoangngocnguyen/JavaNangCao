@@ -33,7 +33,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container">
-			<a class="navbar-brand" href="TrangChuController">Hoàng Shop</a>
+			<a class="navbar-brand" href="/">Hoàng Shop</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
 				aria-controls="navbarNavDropdown" aria-expanded="false"
@@ -43,46 +43,26 @@
 
 			<div class="collapse navbar-collapse" id="navbarNavDropdown">
 				<ul class="navbar-nav mb-2 mb-lg-0 me-2">
-					<li class="nav-item"><a class="nav-link"
-						href="/LichSuMuaHang">Lịch sử mua</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="TrangChuController?q=cart">Giỏ hàng</a></li>
-						
-					<c:if test="${sessionScope.ss.tendn == 'admin'}">
-						<li class="nav-item"><a class="nav-link"
-						href="Dashboard">Dashboard</a></li>
-					</c:if>
+                    <li class="nav-item"><a class="nav-link"
+						href="/Dashboard">Thống kê</a>
+                       </li>
 					
+					<li class="nav-item"><a class="nav-link"
+						href="/QuanLyDonHang">Quản lý đơn hàng</a>
+                       </li>
 
 					<c:choose>
 						<c:when test="${empty sessionScope.ss }">
 							<li class="nav-item"><a class="nav-link"
-								href="DangNhapController">Đăng nhập</a></li>
+								href="/DangNhap">Đăng nhập</a></li>
 						</c:when>
 						<c:otherwise>
 							<li class="nav-item"><a class="nav-link"
-								href="DangXuatController">Đăng xuất</a></li>
+								href="/">Đăng xuất</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
-
-				<form action="TrangChuController" method="get" id="filterForm"
-					class="d-flex me-auto" role="search"
-					onsubmit="return optimizeForm()">
-
-					<input class="form-control me-2" type="text" name="search"
-						id="searchInput" placeholder="Tìm kiếm..." aria-label="Search"
-						value="${search != null ? search : ''}">
-
-					<button class="btn btn-outline-light" type="submit"
-						onclick="resetPage()">Search</button>
-
-					<input type="hidden" name="maLoai" id="maLoaiInput"
-						value="${maLoai != null ? maLoai : ''}"> 
-					<input
-						type="hidden" name="page" id="pageIndexInput"
-						value="${page != null ? page : 1}">
-				</form>
+                
 				<c:if test="${not empty sessionScope.ss}">
 					<span class="navbar-text text-white"> 👋 Xin chào, <b>
 							${sessionScope.ss.hoten}</b>
@@ -91,6 +71,10 @@
 			</div>
 		</div>
 	</nav>
+	
+	
+	
+	
     <div class="container my-5">
 			<h2 class="mb-4 text-dark"><i class="fas fa-chart-line"></i> Dashboard Thống Kê Kho Sách</h2>
         

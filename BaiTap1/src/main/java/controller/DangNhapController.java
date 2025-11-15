@@ -1,5 +1,13 @@
 package controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.stream.Collectors;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,22 +15,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import modal.KhachHang;
-import modal.KhachHangBo;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.stream.Collectors;
+import modal.KhachHang.KhachHang;
+import modal.KhachHang.KhachHangBo;
 
 /**
- * Servlet implementation class DangNhapController
+ * Servlet implementation class /DangNhap
  */
-@WebServlet("/DangNhapController")
+@WebServlet("/DangNhap")
 public class DangNhapController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String SECRET_KEY = "6Lchr-grAAAAAA4M2sLdM9EFcp5FKhkzXeREeoe1";
@@ -78,7 +77,18 @@ public class DangNhapController extends HttpServlet {
 					request.setAttribute("username", username);
 					request.setAttribute("password", password);
 					
-					response.sendRedirect("TrangChuController");
+					// Quay lại trang trước đó nếu có
+					String page = (String) session.getAttribute("page");
+					if (page != null) {
+						response.sendRedirect(page);
+						return;
+					}
+					
+					if (kh.getTendn().equals("admin")) {
+						response.sendRedirect("/Dashboard");
+						return;
+					}
+					response.sendRedirect("/");
 					
 					return;
 				} else {

@@ -1,5 +1,8 @@
 package controller;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,11 +10,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import modal.KhachHang;
-import modal.LichSuMuaHangBo;
-
-import java.io.IOException;
-import java.sql.SQLException;
+import modal.KhachHang.KhachHang;
+import modal.LichSuMuaHang.LichSuMuaHangBo;
 
 /**
  * Servlet implementation class LichSuMuaHang
@@ -37,7 +37,7 @@ public class LichSuMuaHangController extends HttpServlet {
 		
 		// Nếu chưa đăng nhập về đăng nhập
 		if (kh == null) {
-			response.sendRedirect("/DangNhapController");
+			response.sendRedirect("/DangNhap");
 			return;
 		}
 		
