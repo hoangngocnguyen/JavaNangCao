@@ -29,7 +29,7 @@ public class DangXuatController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Xóa session
 		request.getSession().removeAttribute("ss");
-		response.sendRedirect("/");
+		response.sendRedirect("/TrangChu");
 	}
 
 	/**

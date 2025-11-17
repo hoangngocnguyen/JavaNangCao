@@ -16,7 +16,7 @@ import modal.Sach.SachBo;
 /**
  * Servlet implementation class TrangChuController
  */
-@WebServlet("/")
+@WebServlet("/TrangChu")
 public class TrangChuController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

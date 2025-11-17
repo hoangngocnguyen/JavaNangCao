@@ -54,7 +54,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container">
-			<a class="navbar-brand" href="/">Hoàng Shop</a>
+			<a class="navbar-brand" href="/TrangChu">Hoàng Shop</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
 				aria-controls="navbarNavDropdown" aria-expanded="false"
@@ -66,7 +66,7 @@
 				<ul class="navbar-nav mb-2 mb-lg-0 me-2">
 					<li class="nav-item"><a class="nav-link" href="/LichSuMuaHang">Lịch
 							sử mua</a></li>
-					<li class="nav-item"><a class="nav-link" href="/?q=cart">Giỏ
+					<li class="nav-item"><a class="nav-link" href="/TrangChu?q=cart">Giỏ
 							hàng</a></li>
 
 					<c:if test="${sessionScope.ss.tendn == 'admin'}">
@@ -79,17 +79,17 @@
 							<li class="nav-item"><a class="nav-link" href="/DangNhap">Đăng
 									nhập</a></li>
 
-							<li class="nav-item"><a class="nav-link" href="/">Đăng
+							<li class="nav-item"><a class="nav-link" href="/DangKy">Đăng
 									ký</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="nav-item"><a class="nav-link" href="/">Đăng
+							<li class="nav-item"><a class="nav-link" href="/DangXuat">Đăng
 									xuất</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
 
-				<form action="/" method="get" id="filterForm" class="d-flex me-auto"
+				<form action="/TrangChu" method="get" id="filterForm" class="d-flex me-auto"
 					role="search" onsubmit="return optimizeForm()">
 
 					<input class="form-control me-2" type="text" name="search"
@@ -160,9 +160,9 @@
 								<div class="col-sm-4 col-md-3 mb-4">
 									<div class="card h-100 shadow-sm">
 
-										<img
+										<div
 											style="background-image: url('${sach.anh}'); height: 250px; object-fit: cover;"
-											src="${sach.anh}" alt="${sach.tenSach}" class="card-img-top">
+											class="card-img-top"></div>
 
 										<div class="card-body d-flex flex-column">
 

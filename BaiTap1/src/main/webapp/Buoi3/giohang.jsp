@@ -13,7 +13,7 @@ Giỏ hàng của bạn
 <hr>
 
 <c:if test="${not empty sessionScope.gh.ds }">
-	<form id="/"
+	<form id="form-checkbox" action="/GioHang" method="post"
 		class="mb-3">
 		<button type="submit" name="action" value="remove" class="btn btn-outline-danger btn-sm">
 			Xóa sản phẩm đã chọn</button>
@@ -50,7 +50,7 @@ Giỏ hàng của bạn
 				</span> <span class="me-2">x</span>
 
 				<!-- Form cập nhật -->
-				<form action="GioHangController?update=true&ms=${gio.maSach }"
+				<form action="GioHang?update=true&ms=${gio.maSach }"
 					method="post" class="d-inline-block">
 					<input type="text" maxlength="4" pattern="\d{1,4}" name="quantity"
 						value="${gio.soLuong }" min="1" class="text-center"
@@ -60,7 +60,7 @@ Giỏ hàng của bạn
 				</form>
 
 				<!-- Form trả lại -->
-				<form action="GioHangController?remove=true&ms=${gio.maSach }"
+				<form action="GioHang?remove=true&ms=${gio.maSach }"
 					method="post" class="d-inline ms-2">
 					<button  type="submit"  class="btn btn-link cart-action p-0">Trả
 						lại</button>
@@ -90,11 +90,11 @@ Giỏ hàng của bạn
 <div class="d-flex justify-content-center gap-3">
 	<div class="rounded border border-secondary p-2">
 		<a class="text-decoration-none text-secondary-emphasis"
-			href="GioHangController?deleted=all">Trả lại toàn bộ</a>
+			href="GioHang?deleted=all">Trả lại toàn bộ</a>
 	</div>
 	<div class="rounded border border-secondary p-2">
 		<a class="text-decoration-none text-secondary-emphasis"
-			href="/">Tiếp tục mua hàng</a>
+			href="/TrangChu">Tiếp tục mua hàng</a>
 	</div>
 	<button class="rounded border border-secondary p-2 text-white"
 		style="background-color: #6d2524;"

@@ -88,7 +88,7 @@ public class DangNhapController extends HttpServlet {
 						response.sendRedirect("/Dashboard");
 						return;
 					}
-					response.sendRedirect("/");
+					response.sendRedirect("/TrangChu");
 					
 					return;
 				} else {

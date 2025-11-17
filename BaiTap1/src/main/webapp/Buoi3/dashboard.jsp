@@ -33,7 +33,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container">
-			<a class="navbar-brand" href="/">Hoàng Shop</a>
+			<a class="navbar-brand" href="/TrangChu">Hoàng Shop</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
 				aria-controls="navbarNavDropdown" aria-expanded="false"
@@ -58,7 +58,7 @@
 						</c:when>
 						<c:otherwise>
 							<li class="nav-item"><a class="nav-link"
-								href="/">Đăng xuất</a></li>
+								href="/DangXuat">Đăng xuất</a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>

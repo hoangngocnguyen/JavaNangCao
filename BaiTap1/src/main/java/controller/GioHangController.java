@@ -14,7 +14,7 @@ import modal.Sach.Sach;
 import modal.Sach.SachBo;
 
 /**
- * Servlet implementation class GioHangController
+ * Servlet implementation class GioHang
  */
 @WebServlet("/GioHang")
 public class GioHangController extends HttpServlet {
@@ -108,7 +108,7 @@ public class GioHangController extends HttpServlet {
 		}
 		
 		session.setAttribute("gh", gio);
-		response.sendRedirect("/?q=cart");
+		response.sendRedirect("/TrangChu?q=cart");
 	}
 
 	/**
