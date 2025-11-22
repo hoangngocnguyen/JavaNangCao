@@ -6,6 +6,39 @@ import java.sql.ResultSet;
 import modal.KetNoi;
 
 public class KhachHangDao {
+	public KhachHang findKhachHang(String username) throws Exception {
+		// b1. kết nối
+		KetNoi kn = new KetNoi();
+		kn.ketnoi();
+		
+		// 2. tạo lệnh sql
+		String sql = "select * from KhachHang k where k.tendn = ? ";
+		PreparedStatement ps = kn.cn.prepareStatement(sql);
+		
+		// 3. truyền tham số
+		ps.setString(1, username);
+		
+		// 4. chạy sql
+		ResultSet rs = ps.executeQuery();
+		
+		// 5. Thực hiện lấy dữ liệu ra
+		
+		if (rs.next() == false) return null;
+		
+			int makh = rs.getInt("makh");
+			String pass = rs.getString("pass");
+			String hoten = rs.getString("hoten");
+			String diachi = rs.getString("diachi");
+			String sodt = rs.getString("sodt");
+			String email = rs.getString("email");
+			String tendn = rs.getString("tendn");
+		
+		rs.close();
+		kn.cn.close();
+		
+		return new KhachHang(makh, pass, hoten, diachi, sodt, email, tendn);
+	}
+	
 	public KhachHang ktDangNhap(String username, String password) throws Exception {
 		// b1: kết nối cơ sở dữ liệu
 		KetNoi kn = new KetNoi();
@@ -132,5 +165,36 @@ public class KhachHangDao {
 		// b5: đóng (các đối tượng đang mở)
 		kn.cn.close();
 
+	}
+	public void doiMatKhau(int makh, String newPass) throws Exception {
+		// b1: kết nối cơ sở dữ liệu.
+		KetNoi kn = new KetNoi();
+		kn.ketnoi();
+		
+		// b2: tạo câu lệnh sql.
+		String sql = "update KhachHang \r\n"
+				+ "set pass = ? \r\n"
+				+ "where makh = ? \r\n";
+		
+		PreparedStatement preparedStatement = kn.cn.prepareStatement(sql);
+		
+		// b3: truyền tham số vào sql (nếu có)
+		preparedStatement.setString(1, newPass);
+		preparedStatement.setInt(2, makh);
+		
+		
+		
+		// b4: chạy sql. rs là con trỏ vào bảng
+		int rowAffects = preparedStatement.executeUpdate();
+		
+		// b4.2 Kiểm tra result set
+		// Nếu người dùng không tồn tại
+		if (rowAffects == 0) {
+			throw new RuntimeException("Đổi mật khẩu không thành công");
+		}
+		
+		// b5: đóng (các đối tượng đang mở)
+		kn.cn.close();
+		
 	}
 }

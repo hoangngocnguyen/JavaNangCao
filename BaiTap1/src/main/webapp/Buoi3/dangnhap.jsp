@@ -54,6 +54,7 @@
 
 				<button type="submit" class="btn btn-primary w-100 mt-2">Đăng
 					nhập</button>
+				<a href="/QuenMatKhau" class="mt-2">Quên mật khẩu ?</a>
 				<div class="mt-3 text-center">
 				Chưa có tài khoản? <a href="/DangKy">Đăng ký ngay</a>
 				</div>
