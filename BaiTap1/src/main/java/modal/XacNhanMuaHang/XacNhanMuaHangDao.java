@@ -123,7 +123,7 @@ public class XacNhanMuaHangDao {
 		kn.ketnoi();
 
 		// b2: tạo câu lệnh sql
-		String sql = "update select * from V_XacNhanMuaHang\r\n" + "set damua = 1\r\n" + "where MaHoaDon = ?";
+		String sql = "update hoadon\r\n" + "set damua = 1\r\n" + "where MaHoaDon = ?";
 
 		PreparedStatement preparedStatement = kn.cn.prepareStatement(sql);
 
