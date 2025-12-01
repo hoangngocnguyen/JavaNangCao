@@ -7,8 +7,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import modal.ChiTietHoaDon.ChiTietHoaDonBo;
 import modal.KhachHang.KhachHang;
 import modal.LichSuMuaHang.LichSuMuaHangBo;
+import modal.XacNhanMuaHang.XacNhanMuaHang;
+import modal.XacNhanMuaHang.XacNhanMuaHangBo;
+import modal.XacNhanMuaHang.XacNhanMuaHangDao;
 
 import java.io.IOException;
 
@@ -38,7 +42,7 @@ public class QuanLyDonHangController extends HttpServlet {
 		// Trang này chỉ admin vào được
 		KhachHang kh = (KhachHang) session.getAttribute("ss");
 		if (kh == null) {
-			session.setAttribute("page", "/QuanLyDonhang");
+			session.setAttribute("page", "/QuanLyDonHang");
 			response.sendRedirect("/DangNhap");
 
 			return;
@@ -46,7 +50,7 @@ public class QuanLyDonHangController extends HttpServlet {
 
 		if (!"admin".equals(kh.getTendn())) {
 			// Về trang đăng nhập, ghi lại trang hiện tại
-			session.setAttribute("page", "/QuanLyDonhang");
+			session.setAttribute("page", "/QuanLyDonHang");
 			response.sendRedirect("/DangNhap");
 
 			return;
@@ -64,12 +68,12 @@ public class QuanLyDonHangController extends HttpServlet {
 		
 
 		// Lấy tất cả lich sử mua hàng ra
-		LichSuMuaHangBo lsBo = new LichSuMuaHangBo();
+		XacNhanMuaHangBo xnBo = new XacNhanMuaHangBo();
 
 		// Chuyển view về trang quản lý đơn hàng
 		try {
-			request.setAttribute("dsLichSuMuaHang", lsBo.getLichSuMuaHang_Admin(searchParam, page));
-			request.setAttribute("totalPages", lsBo.getTotalPages_Admin(searchParam));
+			request.setAttribute("dsXacNhanMuaHang", xnBo.getXacNhanMuaHang(searchParam, page));
+			request.setAttribute("totalPages", xnBo.getTotalPages(searchParam));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,7 +86,7 @@ public class QuanLyDonHangController extends HttpServlet {
 		if ("confirm".equals(action) && maChiTietHD != null) {
 			int ma = Integer.parseInt(maChiTietHD);
 			try {
-				boolean isSuccess = lsBo.xacNhanDaMua(ma);
+				boolean isSuccess = xnBo.xacNhanDaMua(ma);
 
 				if (isSuccess) {
 					// Nếu thành công, quay về trang quản lý đơn hàng
@@ -103,7 +107,6 @@ public class QuanLyDonHangController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
 		
 		// Trả về view
 		request.setAttribute("page", page);

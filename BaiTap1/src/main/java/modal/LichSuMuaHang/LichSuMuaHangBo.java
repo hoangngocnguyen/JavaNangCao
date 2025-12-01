@@ -21,16 +21,5 @@ public class LichSuMuaHangBo {
 	}
 	
 	
-	// ADMIN:
-	public ArrayList<LichSuMuaHang> getLichSuMuaHang_Admin(String searchMa, int page) throws SQLException, Exception {
-		int offset = pageSize * (page - 1);
-		return lsDao.getLichSuMuaHang_Admin(searchMa, offset, pageSize);
-	}
-	public int getTotalPages_Admin(String searchMa) throws Exception {
-		return lsDao.getTotalPages_Admin(searchMa, pageSize);
-	}
 	
-	public boolean xacNhanDaMua(int maChiTietHD) throws Exception {
-		return lsDao.xacNhanDaMua(maChiTietHD);
-	}
 }

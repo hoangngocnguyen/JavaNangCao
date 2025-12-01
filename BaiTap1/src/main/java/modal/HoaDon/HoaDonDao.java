@@ -3,6 +3,7 @@ package modal.HoaDon;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -115,8 +116,7 @@ public class HoaDonDao {
 		kn.ketnoi();
 
 		// b2: tạo câu lệnh sql
-		String sql = "select * from V_ThongBaoDatHang\r\n"
-				+ "where MaHoaDon = ?";
+		String sql = "select * from V_ThongBaoDatHang\r\n" + "where MaHoaDon = ?";
 		PreparedStatement preparedStatement = kn.cn.prepareStatement(sql);
 
 		// b3: truyền tham số vào sql (nếu có)
@@ -126,16 +126,15 @@ public class HoaDonDao {
 		ResultSet rs = preparedStatement.executeQuery();
 
 		// b4.2 Kiểm tra result set
-		
+
 		if (rs.next()) {
 			int mahd = rs.getInt("MaHoaDon");
 			String hoten = rs.getString("hoten");
 			Date ngaymua = rs.getTimestamp("NgayMua");
 			int tongtien = rs.getInt("TongTien");
-			
+
 			tb = new ThongBaoDatHang(mahd, hoten, ngaymua, tongtien);
 		}
-
 
 		// b5: đóng (các đối tượng đang mở)
 		rs.close();
@@ -143,5 +142,43 @@ public class HoaDonDao {
 
 		// Trả về khách hàng
 		return tb;
+	}
+
+	/**
+	 * Trả về Mã Hóa Đơn (MaHoaDon) từ Mã Chi Tiết Hóa Đơn (MaChiTietHD).
+	 *
+	 * @param maChiTietHD Mã chi tiết hóa đơn cần tìm.
+	 * @return MaHoaDon (int) hoặc -1 nếu không tìm thấy.
+	 * @throws SQLException, Exception
+	 */
+	public int getMaHoaDonByMaChiTietHD(int maChiTietHD) throws SQLException, Exception {
+		int maHoaDon = -1;
+
+		// 1. Mở kết nối
+		KetNoi kn = new KetNoi();
+		kn.ketnoi();
+
+		// 2. Định nghĩa và Chuẩn bị câu lệnh SQL
+		// Sử dụng view V_ChiTietHoaDon để lấy MaHoaDon
+		String sql = "SELECT MaHoaDon FROM V_ChiTietHoaDon WHERE MaChiTietHD = ?";
+		PreparedStatement preparedStatement = kn.cn.prepareStatement(sql);
+
+		// 3. Truyền tham số
+		preparedStatement.setInt(1, maChiTietHD);
+
+		// 4. Thực thi câu lệnh
+		ResultSet rs = preparedStatement.executeQuery();
+
+		// 5. Lấy kết quả
+		if (rs.next()) {
+			maHoaDon = rs.getInt("MaHoaDon");
+		}
+
+		// 6. Đóng các đối tượng
+		rs.close();
+		preparedStatement.close();
+		kn.cn.close();
+
+		return maHoaDon;
 	}
 }

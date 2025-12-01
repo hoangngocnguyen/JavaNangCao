@@ -173,9 +173,6 @@ public class LichSuMuaHangDao {
 			preparedStatement.setInt(2, pageSize);
 		}
 		// b3: truyền tham số vào sql (nếu có)
-		
-		
-		
 
 		// b4: chạy sql. rs là con trỏ vào bảng
 		ResultSet rs = preparedStatement.executeQuery();

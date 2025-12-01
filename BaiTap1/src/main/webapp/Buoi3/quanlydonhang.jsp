@@ -17,8 +17,6 @@ body {
 	background-color: #f4f6f9;
 }
 
-/* Tông màu nền nhẹ nhàng */
-/* CSS cho bảng trên desktop */
 .admin-table th {
 	background-color: #007bff;
 	color: white;
@@ -29,7 +27,6 @@ body {
 	vertical-align: middle;
 }
 
-/* CSS cho Card trên mobile */
 .order-card-admin {
 	border-left: 5px solid #007bff;
 }
@@ -80,15 +77,13 @@ body {
 	</nav>
 
 	<c:if test="${not empty errorMessage}">
-		<div>${errorMesage}</div>
+		<div class="alert alert-danger mx-5 mt-3">${errorMesage}</div>
 	</c:if>
 
 	<div class="container my-5">
 
-		<!-- Tìm kiếm đơn -->
 		<form action="/QuanLyDonHang" method="get" id="QuanLyDonHangForm"
-			class="d-flex me-auto" role="search">
-
+			class="d-flex me-auto mb-4" role="search">
 			<input class="form-control me-2" type="text" name="search"
 				id="searchInput" placeholder="Tìm kiếm..." aria-label="Search"
 				value="${search != null ? search : ''}"> 
@@ -104,48 +99,46 @@ body {
 
 
 
-		<c:if test="${empty dsLichSuMuaHang}">
+		<c:if test="${empty dsXacNhanMuaHang}">
 			<div class="alert alert-warning">
 				<i class="fas fa-bell"></i> Hiện không có đơn hàng nào cần xác nhận.
 			</div>
 		</c:if>
-
 
 		<div class="table-responsive d-none d-md-block">
 			<table class="table table-hover admin-table shadow-sm">
 				<thead>
 					<tr>
 						<th>Mã HĐ</th>
-						<th>Mã C.Tiết</th>
 						<th>Mã KH</th>
-						<th>Tên Sách</th>
-						<th>SL</th>
-						<th>Giá (Đơn)</th>
+						<th>Tên Khách Hàng</th>
+						<th>Tổng SL</th>
+						<th>Tổng Giá</th>
 						<th>Thành Tiền</th>
 						<th>Ngày Mua</th>
 						<th>Trạng Thái</th>
 						<th>Hành Động</th>
-					</tr>
+						<th>Chi Tiết</th> </tr>
 				</thead>
 				<tbody>
-					<c:forEach var="ls" items="${dsLichSuMuaHang}">
-						<tr class="${ls.damua ? 'table-light' : 'table-warning'}">
-							<td>#${ls.maHoaDon}</td>
-							<td>#${ls.maChiTietHoaDon}</td>
-							<td>${ls.makh}</td>
-							<td class="fw-bold">${ls.tensach}</td>
-							<td>${ls.soLuongMua}</td>
-							<td><fmt:formatNumber value="${ls.gia}" pattern="#,###" />
+					<c:forEach var="hd" items="${dsXacNhanMuaHang}">
+						<tr class="${hd.damua ? 'table-light' : 'table-warning'}">
+							<td class="fw-bold text-primary">#${hd.maHoaDon}</td>
+							<td>${hd.makh}</td>
+							<td class="fw-bold">${hd.hoTen}</td>
+							<td>${hd.tongSoLuong}</td>
+							<td><fmt:formatNumber value="${hd.tongGia}" pattern="#,###" /> VND
 							</td>
 							<td class="fw-bold text-danger"><fmt:formatNumber
-									value="${ls.thanhTien}" pattern="#,###" /> VND</td>
-							<td><fmt:formatDate value="${ls.ngayMua}"
+									value="${hd.thanhTien}" pattern="#,###" /> VND</td>
+							<td><fmt:formatDate value="${hd.ngayMua}"
 									pattern="dd/MM/yyyy HH:mm" /></td>
 							<td><span
-								class="badge ${ls.damua ? 'bg-success' : 'bg-warning text-dark'}">
-									${ls.damua ? 'Đã Thanh Toán' : 'Chờ Xác Nhận'} </span></td>
+								class="badge ${hd.damua ? 'bg-success' : 'bg-warning text-dark'}">
+									${hd.damua ? 'Đã Xác Nhận' : 'Chờ Xác Nhận'} </span></td>
+							
 							<td><c:choose>
-									<c:when test="${ls.damua}">
+									<c:when test="${hd.damua}">
 										<button class="btn btn-sm btn-outline-secondary disabled"
 											title="Đã xác nhận">
 											<i class="fas fa-check"></i> Xong
@@ -153,13 +146,22 @@ body {
 									</c:when>
 									<c:otherwise>
 										<a
-											href="QuanLyDonHang?action=confirm&ma=${ls.maChiTietHoaDon}"
+											href="QuanLyDonHang?action=confirm&ma=${hd.maHoaDon}"
 											class="btn btn-sm btn-success"
-											onclick="return confirm('Xác nhận Đã Thanh Toán cho hóa đơn #${ls.maChiTietHoaDon}?');">
+											onclick="return confirm('Xác nhận Đã Thanh Toán cho hóa đơn #${hd.maHoaDon}?');">
 											<i class="fas fa-check-double"></i> Xác Nhận
 										</a>
 									</c:otherwise>
-								</c:choose></td>
+								</c:choose>
+							</td>
+							
+							<td>
+								<a href="XacNhanChiTietHoaDon?mahoadon=${hd.maHoaDon}"
+									class="btn btn-sm btn-info text-white"
+									title="Xem chi tiết hóa đơn">
+									<i class="fas fa-info-circle"></i> Chi Tiết
+								</a>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -168,76 +170,75 @@ body {
 
 
 		<div class="d-md-none">
-			<c:forEach var="ls" items="${dsLichSuMuaHang}">
+			<c:forEach var="hd" items="${dsXacNhanMuaHang}">
 				<div
-					class="card order-card-admin mb-3 ${ls.damua ? 'border-success' : 'border-warning'}">
+					class="card order-card-admin mb-3 ${hd.damua ? 'border-success' : 'border-warning'}">
 					<div class="card-body">
 						<div class="d-flex justify-content-between align-items-start mb-2">
-							<h6 class="mb-0 text-primary">HĐ #${ls.maHoaDon} - KH:
-								${ls.makh}</h6>
+							<h6 class="mb-0 text-primary">HĐ #${hd.maHoaDon} - KH:
+								${hd.makh}</h6>
 							<span
-								class="badge ${ls.damua ? 'bg-success' : 'bg-warning text-dark'}">
-								${ls.damua ? 'Đã TT' : 'Chờ TT'} </span>
+								class="badge ${hd.damua ? 'bg-success' : 'bg-warning text-dark'}">
+								${hd.damua ? 'Đã TT' : 'Chờ TT'} </span>
 						</div>
 
-						<p class="mb-1 fw-bold">${ls.tensach}(${ls.soLuongMua}cuốn)</p>
+						<p class="mb-1">Khách Hàng: <span class="fw-bold">${hd.hoTen}</span></p>
 
 						<div class="d-flex justify-content-between small text-muted mb-3">
-							<span>Giá: <fmt:formatNumber value="${ls.gia}"
-									pattern="#,###" /> VND
-							</span> <span>Mã CT: #${ls.maChiTietHoaDon}</span>
+							<span>Tổng SL: ${hd.tongSoLuong}</span> 
+							<span>Tổng Giá: <fmt:formatNumber value="${hd.tongGia}" pattern="#,###" /> VND</span>
 						</div>
 
 						<h5 class="text-danger mb-3">
-							Tổng:
-							<fmt:formatNumber value="${ls.thanhTien}" pattern="#,###" />
+							Thành Tiền:
+							<fmt:formatNumber value="${hd.thanhTien}" pattern="#,###" />
 							VND
 						</h5>
 
+						<div class="d-grid gap-2">
+							<a href="XacNhanChiTietHoaDon?mahoadon=${hd.maHoaDon}"
+								class="btn btn-sm btn-info text-white">
+								<i class="fas fa-info-circle"></i> Xem Chi Tiết
+							</a>
 						<c:choose>
-							<c:when test="${ls.damua}">
-								<button class="btn btn-sm btn-outline-secondary w-100 disabled">
+							<c:when test="${hd.damua}">
+								<button class="btn btn-sm btn-outline-secondary disabled">
 									<i class="fas fa-check"></i> Đã Xác Nhận
 								</button>
 							</c:when>
 							<c:otherwise>
-								<a href="QuanLyDonHang?action=confirm&ma=${ls.maChiTietHoaDon}"
-									class="btn btn-sm btn-success w-100"
-									onclick="return confirm('Xác nhận Đã Thanh Toán cho hóa đơn #${ls.maChiTietHoaDon}?');">
+								<a href="QuanLyDonHang?action=confirm&ma=${hd.maHoaDon}"
+									class="btn btn-sm btn-success"
+									onclick="return confirm('Xác nhận Đã Thanh Toán cho hóa đơn #${hd.maHoaDon}?');">
 									<i class="fas fa-check-double"></i> Xác Nhận Thanh Toán
 								</a>
 							</c:otherwise>
 						</c:choose>
+						</div>
 					</div>
 					<div class="card-footer text-muted small">
 						<i class="fas fa-clock"></i>
-						<fmt:formatDate value="${ls.ngayMua}" pattern="dd/MM/yyyy HH:mm" />
+						<fmt:formatDate value="${hd.ngayMua}" pattern="dd/MM/yyyy HH:mm" />
 					</div>
 				</div>
 			</c:forEach>
 		</div>
 
 		<div class="d-flex justify-content-center mt-4">
-			<c:if test="${not empty dsLichSuMuaHang}">
+			<c:if test="${not empty dsXacNhanMuaHang}">
 				<c:set var="totalPages"
 					value="${totalPages != null ? totalPages : 1}" />
 				<c:set var="pageRange" value="2" />
-				<!--số trang hiển thị mỗi bên-->
-
-				<%-- Tính toán Phạm vi Hiển thị --%>
 				<c:set var="beginPage" value="${page - pageRange}" />
 				<c:set var="endPage" value="${page + pageRange}" />
 
-				<%--Đảm bảo begin page>= 1--%>
 				<c:if test="${beginPage < 1}">
 					<c:set var="beginPage" value="1" />
 					<c:set var="endPage" value="${page + 2*pageRange}" />
 				</c:if>
 
-				<%-- Đảm bảo endPage <=totalPages --%>
 				<c:if test="${endPage > totalPages}">
 					<c:set var="endPage" value="${totalPages}" />
-					<%-- Điều chỉnh beginPage nếu tổng số trang không đủ 5-7 nút --%>
 					<c:set var="beginPage" value="${endPage - 2 * pageRange}" />
 					<c:if test="${beginPage < 1}">
 						<c:set var="beginPage" value="1" />
@@ -246,13 +247,11 @@ body {
 
 				<nav>
 					<ul class="pagination">
-						<%-- Nút Previous --%>
 						<li class="page-item ${page <= 1 ? 'disabled' : ''}">
 							<a class="page-link" href="#"
 							onclick="changePage(${page - 1})">Trước</a>
 						</li>
 
-						<%-- Hiển thị nút "..." nếu cần --%>
 						<c:if test="${beginPage > 1}">
 							<li class="page-item"><a class="page-link" href="#"
 								onclick="changePage(1)">1</a></li>
@@ -262,14 +261,12 @@ body {
 							</c:if>
 						</c:if>
 
-						<%-- Các nút số trang trong phạm vi --%>
 						<c:forEach var="i" begin="${beginPage}" end="${endPage}">
 							<li class="page-item ${page == i ? 'active' : ''}">
 								<a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
 							</li>
 						</c:forEach>
 
-						<%-- Hiển thị nút "..." nếu cần --%>
 						<c:if test="${endPage < totalPages}">
 							<c:if test="${endPage < totalPages - 1}">
 								<li class="page-item disabled"><a class="page-link"
@@ -279,7 +276,6 @@ body {
 								onclick="changePage(${totalPages})">${totalPages}</a></li>
 						</c:if>
 
-						<%-- Nút Next --%>
 						<li
 							class="page-item ${page >= totalPages ? 'disabled' : ''}">
 							<a class="page-link" href="#"
