@@ -123,7 +123,7 @@ body {
 				<tbody>
 					<c:forEach var="hd" items="${dsXacNhanMuaHang}">
 						<tr class="${hd.damua ? 'table-light' : 'table-warning'}">
-							<td class="fw-bold text-primary">#${hd.maHoaDon}</td>
+							<td class="fw-bold text-primary">${hd.maHoaDon}</td>
 							<td>${hd.makh}</td>
 							<td class="fw-bold">${hd.hoTen}</td>
 							<td>${hd.tongSoLuong}</td>
@@ -175,7 +175,7 @@ body {
 					class="card order-card-admin mb-3 ${hd.damua ? 'border-success' : 'border-warning'}">
 					<div class="card-body">
 						<div class="d-flex justify-content-between align-items-start mb-2">
-							<h6 class="mb-0 text-primary">HĐ #${hd.maHoaDon} - KH:
+							<h6 class="mb-0 text-primary">HĐ ${hd.maHoaDon} - KH:
 								${hd.makh}</h6>
 							<span
 								class="badge ${hd.damua ? 'bg-success' : 'bg-warning text-dark'}">

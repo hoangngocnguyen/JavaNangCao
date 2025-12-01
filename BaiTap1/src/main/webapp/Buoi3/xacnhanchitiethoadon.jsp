@@ -127,7 +127,7 @@ body {
 					<c:set var="totalFinalAmount" value="0" />
 					<c:forEach var="cthd" items="${dsChiTietHoaDon}">
 						<tr class="${cthd.damua ? 'table-light' : 'table-warning'}">
-							<td>#${cthd.maChiTietHD}</td>
+							<td>${cthd.maChiTietHD}</td>
 							<td class="fw-bold">${cthd.tenSach}</td>
 							<td>${cthd.soLuongMua}</td>
 							<td><fmt:formatNumber value="${cthd.gia}" pattern="#,###" />
@@ -176,7 +176,7 @@ body {
 					class="card order-card-admin mb-3 ${cthd.damua ? 'border-success' : 'border-warning'}">
 					<div class="card-body">
 						<div class="d-flex justify-content-between align-items-start mb-2">
-							<h6 class="mb-0 text-primary">CTHD #${cthd.maChiTietHD}</h6>
+							<h6 class="mb-0 text-primary">CTHD ${cthd.maChiTietHD}</h6>
 							<span
 								class="badge ${cthd.damua ? 'bg-success' : 'bg-warning text-dark'}">
 								${cthd.damua ? 'Đã TT' : 'Chờ TT'} </span>
