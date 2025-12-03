@@ -1,14 +1,4 @@
-package controller;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Collection;
-import java.util.List;
-
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+package controller.Admin;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -18,24 +8,31 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import modal.Loai.LoaiDao;
+import modal.Sach.SachDao;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
 
 /**
- * Servlet implementation class test
+ * Servlet implementation class ThemSach
  */
-@WebServlet("/test")
+
 @MultipartConfig(
 		// Tùy chọn: Định nghĩa kích thước file tối đa, vị trí lưu tạm, v.v.
 		fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 		maxFileSize = 1024 * 1024 * 10, // 10MB
 		maxRequestSize = 1024 * 1024 * 50 // 50MB
 )
-public class test extends HttpServlet {
+@WebServlet("/ThemSach")
+public class ThemSachController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public test() {
+	public ThemSachController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -46,7 +43,17 @@ public class test extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// Lấy danh sách loại
+		LoaiDao lDao = new LoaiDao();
+
+		// Nội dung client gửi lên
 		if (request.getContentLength() <= 0) {// Chay lan dau chua co du lieu
+
+			try {
+				request.setAttribute("dsLoai", lDao.getLoai());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			RequestDispatcher rd = request.getRequestDispatcher("Buoi3/themsach.jsp");
 			rd.forward(request, response);
 		} else {
@@ -54,7 +61,6 @@ public class test extends HttpServlet {
 			response.setContentType("text/html;charset=UTF-8");
 
 			// 1. Lấy đường dẫn thư mục "files" (giống như logic cũ)
-//			String uploadPath = request.getServletContext().getRealPath("") + File.separator + "files";
 			String uploadPath = request.getServletContext().getRealPath("/image_sach");
 			File uploadDir = new File(uploadPath);
 
@@ -62,16 +68,11 @@ public class test extends HttpServlet {
 				uploadDir.mkdir(); // Tạo thư mục nếu chưa tồn tại
 			}
 
-			// Xử lý lần đầu (chưa có dữ liệu)
-			// Với API mới, không cần kiểm tra request.getContentLength() <= 0.
-			// Nếu request không phải là multipart, request.getParts() sẽ báo lỗi.
-			// Nếu bạn muốn hiển thị trang themsach.jsp lần đầu, hãy dùng doGet() hoặc một
-			// Servlet riêng.
-			// Ở đây, ta chỉ xử lý POST.
-
 			try {
 				// 2. Lấy tất cả các phần (Part) gửi lên, bao gồm file và các trường form
 				Collection<Part> parts = request.getParts();
+				String maLoai = "", maSach = "", tenSach = "", tacGia = "", anh = "";
+				int soLuong = 0, soTap = 0, gia = 0;
 
 				for (Part part : parts) {
 					String partName = part.getName(); // Lấy tên của trường form/file
@@ -83,36 +84,67 @@ public class test extends HttpServlet {
 						// Đọc giá trị của trường form
 						String fieldValue = request.getParameter(partName); // Dùng request.getParameter() là cách dễ
 																			// nhất
-
-						if ("txthoten".equals(partName)) {
-							response.getWriter().println("Họ tên: " + fieldValue);
-						} else if ("txtdiachi".equals(partName)) {
-							response.getWriter().println("Địa chỉ: " + fieldValue);
+						if ("maloai".equals(partName)) {
+							maLoai = fieldValue;
+						} else if ("txtmasach".equals(partName)) {
+							maSach = fieldValue;
+						} else if ("txttensach".equals(partName)) {
+							tenSach = fieldValue;
+						} else if ("txttacgia".equals(partName)) {
+							tacGia = fieldValue;
+						} else if ("txtsoluong".equals(partName)) {
+							soLuong = Integer.parseInt(fieldValue);
+						} else if ("txtsotap".equals(partName)) {
+							soTap = Integer.parseInt(fieldValue);
+						} else if ("txtgia".equals(partName)) {
+							gia = Integer.parseInt(fieldValue);
 						}
+//							else if ("txtxoa".equals(partName)) {
+//							// Thực hiện test xóa một file
+//							String dirUrl = request.getServletContext().getRealPath("/image_sach");
+//							File deleteFile = new File(dirUrl + "//Gemini_Generated_Image_lp4omglp4omglp4o.png");
+//							deleteFile.delete();
+//							System.out.println("Xóa thành công");
+//						}
 					} else {
 						// Đây là một File được gửi lên (có tên file)
-
 						String fileName = part.getSubmittedFileName(); // Lấy tên file gốc
 
 						if (fileName != null && !fileName.isEmpty()) {
+							String fileExtension = fileName.substring(fileName.lastIndexOf('.'));
+							// Đặt tên file trùng với mã sách
 
-							// Lưu file vào thư mục đã định nghĩa
-							String filePath = uploadPath + File.separator + fileName;
-
+							String filePath = uploadPath + File.separator + maSach + fileExtension;
+							
+							// Lấy đường dẫn ảnh vào db
+							anh = "image_sach/" + maSach + fileExtension;
 							// Lưu file bằng phương thức write() của Part
 							part.write(filePath);
 
-							response.getWriter().println("UPLOAD THÀNH CÔNG...!");
-							response.getWriter().println("Đường dẫn lưu file là: " + uploadPath);
+							System.out.println("UPLOAD THÀNH CÔNG...!");
+							System.out.println("Đường dẫn lưu file là: " + uploadPath);
 						}
 					}
 				}
+
+				// Tiến hành thêm vào DB
+				System.out.println("maloai: " + maLoai + "-" + maSach);
+				SachDao sDao = new SachDao();
+				int rs = sDao.themSach(maSach, tenSach, soLuong, gia, maLoai, soTap, anh, tacGia);
+				if (rs == 1) {
+					System.out.println("Thêm sách thành công");
+					
+					// Chuyển về trang sách
+					response.sendRedirect("/QuanLySach");
+				} else {
+					System.out.println("Thêm sách thất bại");
+				}
+
 			} catch (Exception e) {
 				response.getWriter().println("Lỗi Upload: " + e.getMessage());
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	/**

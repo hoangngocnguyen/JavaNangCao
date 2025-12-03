@@ -8,8 +8,19 @@ public class Sach {
 	private long gia;
 	private String anh;
 	private String maLoai;
+	private int soTap;
 	
 	
+	
+	
+	public int getSoTap() {
+		return soTap;
+	}
+
+	public void setSoTap(int soTap) {
+		this.soTap = soTap;
+	}
+
 	public String getMaSach() {
 		return maSach;
 	}
@@ -71,7 +82,8 @@ public class Sach {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Sach(String maSach, String tenSach, String tacGia, long soLuong, long gia, String anh, String maLoai) {
+	public Sach(String maSach, String tenSach, String tacGia, long soLuong, long gia, String anh, String maLoai,
+			int soTap) {
 		super();
 		this.maSach = maSach;
 		this.tenSach = tenSach;
@@ -80,7 +92,6 @@ public class Sach {
 		this.gia = gia;
 		this.anh = anh;
 		this.maLoai = maLoai;
+		this.soTap = soTap;
 	}
-	
-	
 }

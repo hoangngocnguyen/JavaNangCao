@@ -1,4 +1,4 @@
-package controller;
+package controller.Admin;
 
 import java.io.IOException;
 
@@ -11,16 +11,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import modal.ThongKe.ThongKeBo;
 
 /**
- * Servlet implementation class Dashboard
+ * Servlet implementation class ThongKeSach
  */
-@WebServlet("/Dashboard")
-public class DashboardController extends HttpServlet {
+@WebServlet("/ThongKeSach")
+public class ThongKeSachController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public DashboardController() {
+	public ThongKeSachController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -36,11 +36,14 @@ public class DashboardController extends HttpServlet {
 		if (pageParam != null) {
 			page = Integer.parseInt(pageParam);
 		}
+		
+		// Lấy search (tên loại)
+		String search = request.getParameter("search");
 		// Thống kê kho sách
 		ThongKeBo tkBo = new ThongKeBo();
 		try {
-			request.setAttribute("dsThongKeKhoSach", tkBo.getThongKeKhoSach(page));
-			request.setAttribute("totalPages", tkBo.getTotalPages_ThongKeKhoSach());
+			request.setAttribute("dsThongKeKhoSach", tkBo.getThongKeKhoSach(search, page));
+			request.setAttribute("totalPages", tkBo.getTotalPages_ThongKeKhoSach(search));
 
 			request.setAttribute("thongKeTongQuan", tkBo.getThongKeTongQuan());
 		} catch (Exception e) {
@@ -48,6 +51,7 @@ public class DashboardController extends HttpServlet {
 		}
 		
 		request.setAttribute("currentPage", page);
+		request.setAttribute("search", search);
 		RequestDispatcher rd = request.getRequestDispatcher("/Buoi3/dashboard.jsp");
 		rd.forward(request, response);
 	}

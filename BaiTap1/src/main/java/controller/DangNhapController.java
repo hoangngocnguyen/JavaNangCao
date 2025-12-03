@@ -85,7 +85,7 @@ public class DangNhapController extends HttpServlet {
 					}
 					
 					if (kh.getTendn().equals("admin")) {
-						response.sendRedirect("/Dashboard");
+						response.sendRedirect("/HomNay");
 						return;
 					}
 					response.sendRedirect("/TrangChu");

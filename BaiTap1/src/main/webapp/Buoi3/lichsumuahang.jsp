@@ -40,11 +40,11 @@
 					<li class="nav-item"><a class="nav-link"
 						href="/LichSuMuaHang">Lịch sử mua</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="/?q=cart">Giỏ hàng</a></li>
+						href="/TrangChu?q=cart">Giỏ hàng</a></li>
 						
 					<c:if test="${sessionScope.ss.tendn == 'admin'}">
 						<li class="nav-item"><a class="nav-link"
-						href="Dashboard">Dashboard</a></li>
+						href="ThongKeSach">ThongKeSach</a></li>
 					</c:if>
 					
 

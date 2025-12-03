@@ -7,22 +7,25 @@ import java.util.ArrayList;
 import modal.KetNoi;
 
 public class ThongKeDao {
-	public ArrayList<ThongKeKhoSach> getThongKeKhoSach(int offset, int pageSize) throws Exception {
+	public ArrayList<ThongKeKhoSach> getThongKeKhoSach(String searchTenLoai, int offset, int pageSize) throws Exception {
 		ArrayList<ThongKeKhoSach> lst = new ArrayList<ThongKeKhoSach>();
 
 		// 1. Mở kết nối
 		KetNoi kn = new KetNoi();
 		kn.ketnoi();
-
+		
+		System.out.println("search:_" + searchTenLoai);
 		// b2: tạo câu lệnh sql
 		String sql = "select * from V_ThongKeKhoSach\r\n"
-				+ "order by tenloai\r\n"
+				+ "where tenloai like ? \r\n"
+				+ "order by SoSach\r\n"
 				+ "offset ? rows fetch next ? rows only";
 		PreparedStatement preparedStatement = kn.cn.prepareStatement(sql);
 
 		// b3: truyền tham số vào sql (nếu có)
-		preparedStatement.setInt(1, offset);
-		preparedStatement.setInt(2, pageSize);
+		preparedStatement.setString(1, searchTenLoai);
+		preparedStatement.setInt(2, offset);
+		preparedStatement.setInt(3, pageSize);
 
 		// b4: chạy sql. rs là con trỏ vào bảng
 		ResultSet rs = preparedStatement.executeQuery();
@@ -45,18 +48,20 @@ public class ThongKeDao {
 
 	}
 	
-	public int getTotalPages_ThongKeKhoSach(int pageSize) throws Exception {
+	public int getTotalPages_ThongKeKhoSach(String searchTenLoai, int pageSize) throws Exception {
 		int totalPages = 0;
 		// 1. Mở kết nối
 		KetNoi kn = new KetNoi();
 		kn.ketnoi();
 
 		// b2: tạo câu lệnh sql
-		String sql = "select count(*) as sl from V_ThongKeKhoSach";
+		String sql = "select count(*) as sl from V_ThongKeKhoSach \r\n"
+				+ "where tenloai like ? \r\n";
 		PreparedStatement preparedStatement = kn.cn.prepareStatement(sql);
 
 		// b3: truyền tham số vào sql (nếu có)
-
+		preparedStatement.setString(1, searchTenLoai);
+		
 		// b4: chạy sql. rs là con trỏ vào bảng
 		ResultSet rs = preparedStatement.executeQuery();
 

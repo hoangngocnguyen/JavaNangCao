@@ -53,6 +53,13 @@ public class GioHangBo {
 		ds.removeIf(gio -> gio.getMaSach().equals(maSach));
 	}
 	
+	
+	public void xoaChon(String[] dsMaSach) {
+		for (String ma : dsMaSach) {
+			ds.removeIf(gio -> gio.getMaSach().equals(ma));
+		}
+	}
+	
 	public void xoaTatCa() {
 		ds.removeAll(ds);
 	}

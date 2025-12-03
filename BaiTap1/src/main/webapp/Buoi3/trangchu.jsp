@@ -70,7 +70,7 @@
 							hàng</a></li>
 
 					<c:if test="${sessionScope.ss.tendn == 'admin'}">
-						<li class="nav-item"><a class="nav-link" href="Dashboard">Dashboard</a></li>
+						<li class="nav-item"><a class="nav-link" href="ThongKeSach">ThongKeSach</a></li>
 					</c:if>
 
 

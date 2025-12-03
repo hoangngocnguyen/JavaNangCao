@@ -37,7 +37,8 @@ public class HoaDonController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// *** Khi người dùng bấm nút thanh toán trong trang giỏ hàng, chuyển hướng đến đây
+		// *** Khi người dùng bấm nút thanh toán trong trang giỏ hàng, chuyển hướng đến
+		// đây
 
 		// Lấy danh sách giỏ hàng từ session
 		HttpSession session = request.getSession();
@@ -50,7 +51,7 @@ public class HoaDonController extends HttpServlet {
 
 		if (kh == null) {
 			response.sendRedirect("/DangNhap");
-			
+
 			// Lưu trang trước đó vào session
 			session.setAttribute("page", "/GioHang");
 			return;
@@ -62,7 +63,7 @@ public class HoaDonController extends HttpServlet {
 
 		// Lấy các sách được checkox (chứ không phải lấy toàn bộ giỏ hàng)
 		String[] dsMaSach = (String[]) request.getAttribute("dsMaSach");
-		
+
 		// Kiểm tra nếu ds == 0 ~ là chưa mua gì
 		if (dsMaSach == null) {
 			response.sendRedirect("/GioHang");
@@ -79,31 +80,31 @@ public class HoaDonController extends HttpServlet {
 
 		try {
 			Integer maHoaDon = hoaDonBo.taoHoaDonVaChiTiet(kh.getMakh(), dsMua);
-			
-			
+
 			// 2. Định nghĩa tác vụ Gửi Email (Runnable)
 			Runnable mailTask = () -> {
 				try {
 					// Gửi email cho người dùng thông báo đặt hàng thành công
 					// Lấy thông tin từ hóa đơn + chi tiết hóa đơn
-					
+
 					hoaDonBo.guiEmailThongBaoDatHangThanhCong(kh, maHoaDon);
 				} catch (Exception e) {
 					System.err.println("Lỗi gửi email bất đồng bộ cho đơn hàng " + maHoaDon + ": " + e.getMessage());
-	                // (Tùy chọn: Có thể thử gửi lại sau, hoặc lưu vào DB để xử lý sau)
+					// (Tùy chọn: Có thể thử gửi lại sau, hoặc lưu vào DB để xử lý sau)
 				}
 			};
-			
+
 			// 3. Gửi tác vụ vào Thread Pool và giải phóng thread chính
 			TaskExecutor.submitMailTask(mailTask);
-			
-			
+
+			// 4. Xóa sản phẩm vừa đặt trong giỏ
+			gh.xoaChon(dsMaSach);
 		} catch (Exception e) {
-			response.sendRedirect("/GioHang");
+			response.sendRedirect("/LichSuMuaHang");
 			e.printStackTrace();
 			return;
 		}
-		
+
 		// CHuyển hướng người dùng (~ thread chính kết thúc)
 		RequestDispatcher rd = request.getRequestDispatcher("/LichSuMuaHang");
 		rd.forward(request, response);

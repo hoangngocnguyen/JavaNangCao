@@ -88,7 +88,7 @@ public class GioHangController extends HttpServlet {
 		}
 		
 		
-		// XỬ LÝ List Checkbox: xóa - checkout
+		// XỬ LÝ List Checkbox: xóa và checkout
 		// Xóa sản phẩm đã chọn trong checkbox
 		String[] listCheckbox = request.getParameterValues("checkboxDelete");
 		String action = request.getParameter("action");
@@ -99,6 +99,7 @@ public class GioHangController extends HttpServlet {
 					gio.xoa(ma);
 				}
 			}
+		// Checkout sản phẩm đã chọn trong checkbox
 		} else if ("checkout".equals(action)) {
 			// CHuyển đến HoaDon xử lý
 			request.setAttribute("dsMaSach", listCheckbox);
