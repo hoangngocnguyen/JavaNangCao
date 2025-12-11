@@ -26,7 +26,7 @@ public class XacNhanMuaHangDao {
 		// b2: tạo câu lệnh sql
 		if (finalSearch != null) {
 			// Tìm kiếm theo MaHoaDon hoặc HoTen
-			sql = "select * from V_XacNhanMuaHang\r\n" + "where MaHoaDon = ? or hoten like ? \r\n"
+			sql = "select * from V_XacNhanMuaHang\r\n" + "where MaHoaDon like ? or hoten like ? \r\n"
 					+ "order by NgayMua desc\r\n" + "offset ? rows fetch next ? rows only";
 			preparedStatement = kn.cn.prepareStatement(sql);
 
@@ -176,5 +176,42 @@ public class XacNhanMuaHangDao {
 		kn.cn.close();
 
 		return true;
+	}
+	
+	
+	/*
+	 * Hàm kiểm tra còn chi tiết đơn hàng chưa mua của một đơn hàng hay không
+	 * Param: maHD
+	 * Return: soluong
+	 */
+	public boolean daMuaHet(int maHD) throws Exception {
+		// 1. Mở kết nối
+		KetNoi kn = new KetNoi();
+		kn.ketnoi();
+
+		// b2: tạo câu lệnh sql
+		String sql = "select *\r\n"
+				+ "from hoadon hd \r\n"
+				+ "where damua = 1 and MaHoaDon = ?";
+
+		PreparedStatement preparedStatement = kn.cn.prepareStatement(sql);
+
+		// b3: truyền tham số vào sql (nếu có)
+		preparedStatement.setInt(1, maHD);
+
+		// b4: chạy sql. rs là con trỏ vào bảng
+		ResultSet rs = preparedStatement.executeQuery();
+
+		// b4.2 Ánh xạ dữ liệu từ result set
+		// Nếu còn dữ liệu -> vẫn còn chi tiết hóa đơn chưa thanh toán
+		if (rs.next()) {
+			return true;
+		}
+		
+		// b5: đóng (các đối tượng đang mở)
+
+		kn.cn.close();
+
+		return false;
 	}
 }

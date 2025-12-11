@@ -8,12 +8,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import modal.KhachHang.KhachHang;
 import modal.ThongKe.ThongKeBo;
 
 /**
  * Servlet implementation class ThongKeSach
  */
-@WebServlet("/ThongKeSach")
+@WebServlet("/ThongKeKhoSach")
 public class ThongKeSachController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -26,9 +28,28 @@ public class ThongKeSachController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		// Trang này chỉ admin vào được
+		KhachHang kh = (KhachHang) session.getAttribute("ss");
+		if (kh == null) {
+			session.setAttribute("page", "/QuanLyDonHang");
+			response.sendRedirect("/DangNhap");
+
+			return;
+		}
+
+		if (!"admin".equals(kh.getTendn())) {
+			// Về trang đăng nhập, ghi lại trang hiện tại
+			session.setAttribute("page", "/QuanLyDonHang");
+			response.sendRedirect("/DangNhap");
+
+			return;
+		}
 		
 		// Lấy trang
 		String pageParam = request.getParameter("page");
@@ -36,7 +57,7 @@ public class ThongKeSachController extends HttpServlet {
 		if (pageParam != null) {
 			page = Integer.parseInt(pageParam);
 		}
-		
+
 		// Lấy search (tên loại)
 		String search = request.getParameter("search");
 		// Thống kê kho sách
@@ -49,10 +70,10 @@ public class ThongKeSachController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		request.setAttribute("currentPage", page);
 		request.setAttribute("search", search);
-		RequestDispatcher rd = request.getRequestDispatcher("/Buoi3/dashboard.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/Buoi3/thongkekhosach.jsp");
 		rd.forward(request, response);
 	}
 

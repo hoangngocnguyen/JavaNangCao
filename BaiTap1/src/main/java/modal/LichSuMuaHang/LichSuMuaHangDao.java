@@ -46,10 +46,6 @@ public class LichSuMuaHangDao {
 			lst.add(new LichSuMuaHang(makh, tensach, gia, soLuongMua, thanhTien, damua, ngayMua, maHoaDon, maChiTietHoaDon));
 		}
 		
-//		for (LichSuMuaHang ls: lst) {
-//			System.out.println("sl" + ls.getSoLuongMua() + "tt"+ ls.getThanhTien());
-//		}
-
 		// b5: đóng (các đối tượng đang mở)
 		rs.close();
 		kn.cn.close();
@@ -244,36 +240,50 @@ public class LichSuMuaHangDao {
 	
 	
 	/*
-	 * Xác nhận đã mua
+	 * Lấy lịch sử đơn hàng theo tháng hiện tại phục vụ thống kê
 	 */
-	public boolean xacNhanDaMua(int maChiTietHD) throws Exception {
+	public ArrayList<LichSuMuaHang> getLichSuMuaHangThangHienTai(int makh) throws SQLException, Exception {
+		ArrayList<LichSuMuaHang> lst = new ArrayList<LichSuMuaHang>();
+
 		// 1. Mở kết nối
 		KetNoi kn = new KetNoi();
 		kn.ketnoi();
 
 		// b2: tạo câu lệnh sql
-		String sql = "update V_LichSuMuaHang\r\n"
-				+ "set damua = 1\r\n"
-				+ "where MaChiTietHD = ?";
+		String sql = "select * \r\n"
+				+ "from V_LichSuMuaHang\r\n"
+				+ "where makh = ? and (month(NgayMua) = month(getdate())) and (year(NgayMua) = year(getdate())) "
+				+ "and damua=1 "
+				+ "order by NgayMua desc";
 				
 		PreparedStatement preparedStatement = kn.cn.prepareStatement(sql);
 
 		// b3: truyền tham số vào sql (nếu có)
-		preparedStatement.setInt(1, maChiTietHD);
+		preparedStatement.setInt(1, makh);
 
 		// b4: chạy sql. rs là con trỏ vào bảng
-		int rowAffect = preparedStatement.executeUpdate();
+		ResultSet rs = preparedStatement.executeQuery();
 
 		// b4.2 Ánh xạ dữ liệu từ result set
-		if (rowAffect == 0) {
-			// Cập nhật thất bại hay gì đó
-			return false;
-		}
+		while (rs.next()) {
+			int ma = rs.getInt("makh");
+			String tensach = rs.getString("tensach");
+			int gia = rs.getInt("gia");
+			int soLuongMua = rs.getInt("SoLuongMua");
+			int thanhTien = rs.getInt("ThanhTien");
+			boolean damua = rs.getBoolean("damua");
+			Date ngayMua = rs.getTimestamp("NgayMua");
+			int maHoaDon = rs.getInt("MaHoaDon");
+			int maChiTietHoaDon = rs.getInt("MaChiTietHD");
 
-		// b5: đóng (các đối tượng đang mở)
+			lst.add(new LichSuMuaHang(ma, tensach, gia, soLuongMua, thanhTien, damua, ngayMua, maHoaDon, maChiTietHoaDon));
+		}
 		
+		// b5: đóng (các đối tượng đang mở)
+		rs.close();
 		kn.cn.close();
 
-		return true;
+		return lst;
+
 	}
 }

@@ -38,7 +38,6 @@ public class QuanLyDonHangController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-
 		// Trang này chỉ admin vào được
 		KhachHang kh = (KhachHang) session.getAttribute("ss");
 		if (kh == null) {
@@ -69,6 +68,7 @@ public class QuanLyDonHangController extends HttpServlet {
 
 		// Lấy tất cả lich sử mua hàng ra
 		XacNhanMuaHangBo xnBo = new XacNhanMuaHangBo();
+		
 
 		// Chuyển view về trang quản lý đơn hàng
 		try {
@@ -89,7 +89,6 @@ public class QuanLyDonHangController extends HttpServlet {
 				boolean isSuccess = xnBo.xacNhanDaMua(ma);
 
 				if (isSuccess) {
-					// Nếu thành công, quay về trang quản lý đơn hàng
 					response.sendRedirect("/QuanLyDonHang");
 
 					return;

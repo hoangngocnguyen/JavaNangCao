@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ThongKeSach Thống Kê</title>
+<title>Thống Kê Sách</title>
 
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
@@ -40,7 +40,7 @@
 	<div class="content-wrapper">
 		<div class="container-fluid p-0">
 			<h2 class="mb-4 text-dark">
-				<i class="fas fa-chart-line"></i> ThongKeSach Thống Kê Kho Sách
+				<i class="fas fa-chart-line"></i>Thống Kê Kho Sách
 			</h2>
 
 			<div class="row mb-5">

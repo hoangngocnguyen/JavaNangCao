@@ -7,7 +7,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+import modal.KhachHang.KhachHang;
 import modal.Loai.LoaiBo;
 import modal.Loai.LoaiDao;
 import modal.Sach.SachDao;
@@ -44,6 +46,24 @@ public class XoaLoaiController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		// Trang này chỉ admin vào được
+		KhachHang kh = (KhachHang) session.getAttribute("ss");
+		if (kh == null) {
+			session.setAttribute("page", "/QuanLyDonHang");
+			response.sendRedirect("/DangNhap");
+
+			return;
+		}
+
+		if (!"admin".equals(kh.getTendn())) {
+			// Về trang đăng nhập, ghi lại trang hiện tại
+			session.setAttribute("page", "/QuanLyDonHang");
+			response.sendRedirect("/DangNhap");
+
+			return;
+		}
+
 		LoaiDao lDao = new LoaiDao();
 
 		// Nhận maLoai, tenLoai rồi tạo mới lưu vào DB

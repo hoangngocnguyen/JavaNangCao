@@ -2,6 +2,7 @@ package modal.ThongKe;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import modal.HoaDon.HoaDonDao;
 import modal.XacNhanMuaHang.XacNhanMuaHang;
@@ -55,5 +56,12 @@ public class ThongKeBo {
 	
 	public int getTongThuNhapHomNay() throws Exception {
 		return hnDao.getTongThuNhapHomNay();
+	}
+	
+	/*
+	 * Lấy top khách hàng chi tiêu nhiều nhất
+	 */
+	public List<TopKhachHang> getTopKhachHang(int top) throws Exception {
+		return tkDao.getTopKhachHang(top);
 	}
 }

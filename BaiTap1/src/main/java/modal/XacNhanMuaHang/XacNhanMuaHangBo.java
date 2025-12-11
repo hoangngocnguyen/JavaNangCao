@@ -11,7 +11,11 @@ public class XacNhanMuaHangBo {
 
 	public ArrayList<XacNhanMuaHang> getXacNhanMuaHang(String searchMaHD, int page) throws SQLException, Exception {
 		int offset = pageSize * (page - 1);
-		return xnDao.getXacNhanMuaHang(searchMaHD, offset, pageSize);
+		String pattern = "";
+		if (searchMaHD != null) {
+			pattern = "%" + searchMaHD + "%";
+		}
+		return xnDao.getXacNhanMuaHang(pattern, offset, pageSize);
 	}
 
 	public int getTotalPages(String searchMaHD) throws Exception {

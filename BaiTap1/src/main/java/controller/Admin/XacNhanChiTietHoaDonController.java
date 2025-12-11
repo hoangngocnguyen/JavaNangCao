@@ -6,9 +6,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import modal.ChiTietHoaDon.ChiTietHoaDonBo;
 import modal.HoaDon.HoaDonDao;
+import modal.KhachHang.KhachHang;
 import modal.XacNhanMuaHang.XacNhanMuaHangBo;
+import modal.XacNhanMuaHang.XacNhanMuaHangDao;
 
 import java.io.IOException;
 
@@ -33,6 +36,24 @@ public class XacNhanChiTietHoaDonController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		// Trang này chỉ admin vào được
+		KhachHang kh = (KhachHang) session.getAttribute("ss");
+		if (kh == null) {
+			session.setAttribute("page", "/QuanLyDonHang");
+			response.sendRedirect("/DangNhap");
+
+			return;
+		}
+
+		if (!"admin".equals(kh.getTendn())) {
+			// Về trang đăng nhập, ghi lại trang hiện tại
+			session.setAttribute("page", "/QuanLyDonHang");
+			response.sendRedirect("/DangNhap");
+
+			return;
+		}
+		
 		// Lấy trang
 		String pageParam = request.getParameter("page");
 		int page = 1;
@@ -42,10 +63,11 @@ public class XacNhanChiTietHoaDonController extends HttpServlet {
 
 		ChiTietHoaDonBo ctBo = new ChiTietHoaDonBo();
 		XacNhanMuaHangBo xnBo = new XacNhanMuaHangBo();
+		XacNhanMuaHangDao xnDao = new XacNhanMuaHangDao();
 
 		// Lấy mã hđ
 		String mahoadon = request.getParameter("mahoadon");
-		
+
 		if (mahoadon != null) {
 			int maHD = Integer.parseInt(mahoadon);
 			try {
@@ -54,7 +76,6 @@ public class XacNhanChiTietHoaDonController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
 
 		// Xác nhận chi tiết hóa đơn
 		String action = request.getParameter("action");
@@ -63,17 +84,20 @@ public class XacNhanChiTietHoaDonController extends HttpServlet {
 		if ("confirm_cthd".equals(action) && maChiTietHD != null) {
 			int maCTHD = Integer.parseInt(maChiTietHD);
 			try {
-				
+
 				// Lấy mã hóa đơn ra trước khi xác nhận
 				HoaDonDao hdDao = new HoaDonDao();
 				int maHD = hdDao.getMaHoaDonByMaChiTietHD(maCTHD);
-				
-				boolean isSuccess = xnBo.xacNhanDaMuaChiTiet(maCTHD);
-				
-				if (isSuccess) {
-					// Nếu thành công, quay về trang chi tiết hóa đơn
-					response.sendRedirect("/XacNhanChiTietHoaDon?mahoadon=" + maHD);
 
+				boolean isSuccess = xnBo.xacNhanDaMuaChiTiet(maCTHD);
+
+				if (isSuccess) {
+					// Nếu đã mua hết, chuyển về trang quản lý đơn hàng
+					if (xnDao.daMuaHet(maHD)) {
+						response.sendRedirect("/QuanLyDonHang");
+					} else {
+						response.sendRedirect("/XacNhanChiTietHoaDon?mahoadon=" + maHD);
+					}
 					return;
 				} else {
 					// Nếu thất bại, báo lỗi

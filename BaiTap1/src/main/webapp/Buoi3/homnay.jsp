@@ -147,8 +147,7 @@ body {
 			<div class="d-grid gap-2 mt-3 mb-5">
 				<a href="/QuanLyDonHang"
 					class="btn btn-warning btn-lg text-dark fw-bold"> <i
-					class="fas fa-check-circle me-2"></i> Xác Nhận Các Đơn Cần Xử Lý
-					Ngay
+					class="fas fa-check-circle me-2"></i> Đến quản lý đơn hàng ngay
 				</a>
 			</div>
 

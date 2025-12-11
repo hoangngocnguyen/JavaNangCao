@@ -96,9 +96,9 @@ body {
 				class="nav-link" aria-current="page"> <i
 					class="fas fa-chart-line me-2"></i> Thống kê doanh thu
 			</a></li>
-			<li class="nav-item"><a href="/ThongKeSach"
+			<li class="nav-item"><a href="/ThongKeKhoSach"
 				class="nav-link" aria-current="page"> <i
-					class="fas fa-chart-line me-2"></i> Thống kê Sách
+					class="fas fa-chart-line me-2"></i> Thống kê kho sách
 			</a></li>
 			<li><a href="/QuanLyDonHang" class="nav-link"> <i
 					class="fas fa-receipt me-2"></i> Quản lý đơn hàng
@@ -109,8 +109,8 @@ body {
 			<li><a href="/QuanLyLoai" class="nav-link"> <i
 					class="fas fa-book-open me-2"></i> Quản lý loại
 			</a></li>
-			<li><a href="#" class="nav-link"> <i
-					class="fas fa-users me-2"></i> Quản lý người dùng
+			<li><a href="/ChamSocKhachHang" class="nav-link"> <i
+					class="fas fa-users me-2"></i> Chăm sóc khách hàng
 			</a></li>
 		</ul>
 
@@ -131,9 +131,6 @@ body {
 					</a>
 					<ul class="dropdown-menu dropdown-menu-dark text-small shadow"
 						aria-labelledby="dropdownUser1">
-						<li><a class="dropdown-item" href="#">Cài đặt</a></li>
-						<li><a class="dropdown-item" href="#">Profile</a></li>
-						<li><hr class="dropdown-divider"></li>
 						<li><a class="dropdown-item text-danger" href="/DangXuat"><i
 								class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
 					</ul>

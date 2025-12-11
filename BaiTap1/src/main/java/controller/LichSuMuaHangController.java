@@ -37,6 +37,7 @@ public class LichSuMuaHangController extends HttpServlet {
 		
 		// Nếu chưa đăng nhập về đăng nhập
 		if (kh == null) {
+			session.setAttribute("page", "/LichSuMuaHang");
 			response.sendRedirect("/DangNhap");
 			return;
 		}

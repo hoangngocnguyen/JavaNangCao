@@ -7,7 +7,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+import modal.KhachHang.KhachHang;
 import modal.Loai.LoaiDao;
 import modal.Sach.Sach;
 import modal.Sach.SachDao;
@@ -42,6 +44,23 @@ public class SuaSachController extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 
+		HttpSession session = request.getSession();
+		// Trang này chỉ admin vào được
+		KhachHang kh = (KhachHang) session.getAttribute("ss");
+		if (kh == null) {
+			session.setAttribute("page", "/QuanLyDonHang");
+			response.sendRedirect("/DangNhap");
+
+			return;
+		}
+
+		if (!"admin".equals(kh.getTendn())) {
+			// Về trang đăng nhập, ghi lại trang hiện tại
+			session.setAttribute("page", "/QuanLyDonHang");
+			response.sendRedirect("/DangNhap");
+
+			return;
+		}
 		// Lấy danh sách loại
 		LoaiDao lDao = new LoaiDao();
 		SachDao sDao = new SachDao();
@@ -95,13 +114,13 @@ public class SuaSachController extends HttpServlet {
 
 						if (fileName != null && !fileName.isEmpty()) {
 							String fileExtension = fileName.substring(fileName.lastIndexOf('.'));
-							
+
 							// Đặt tên file trùng với mã sách
 							String filePath = uploadPath + File.separator + maSach + fileExtension;
-							
+
 							// Lấy đường dẫn ảnh vào db
 							anh = "image_sach/" + maSach + fileExtension;
-							
+
 							System.out.println("anh:" + fileName + "_" + anh + "uppath-" + filePath);
 
 							// Lưu file bằng phương thức write() của Part
@@ -132,11 +151,10 @@ public class SuaSachController extends HttpServlet {
 				response.getWriter().println("Lỗi Upload: " + e.getMessage());
 				e.printStackTrace();
 			}
-			
+
 			return;
 		}
-		
-		
+
 		// Chay lan dau chua co du lieu
 		// Gửi về danh sách loại để gắn vào form + sách
 
