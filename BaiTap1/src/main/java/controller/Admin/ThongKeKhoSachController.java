@@ -16,13 +16,13 @@ import modal.ThongKe.ThongKeBo;
  * Servlet implementation class ThongKeSach
  */
 @WebServlet("/ThongKeKhoSach")
-public class ThongKeSachController extends HttpServlet {
+public class ThongKeKhoSachController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ThongKeSachController() {
+	public ThongKeKhoSachController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -37,7 +37,7 @@ public class ThongKeSachController extends HttpServlet {
 		// Trang này chỉ admin vào được
 		KhachHang kh = (KhachHang) session.getAttribute("ss");
 		if (kh == null) {
-			session.setAttribute("page", "/QuanLyDonHang");
+			session.setAttribute("pagePrev", "/QuanLyDonHang");
 			response.sendRedirect("/DangNhap");
 
 			return;
@@ -45,7 +45,7 @@ public class ThongKeSachController extends HttpServlet {
 
 		if (!"admin".equals(kh.getTendn())) {
 			// Về trang đăng nhập, ghi lại trang hiện tại
-			session.setAttribute("page", "/QuanLyDonHang");
+			session.setAttribute("pagePrev", "/QuanLyDonHang");
 			response.sendRedirect("/DangNhap");
 
 			return;

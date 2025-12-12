@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.util.Properties"/>
-    <fullyQualifiedTypeName name="jakarta.mail.Session"/>
-    <fullyQualifiedTypeName name="jakarta.mail.Authenticator"/>
-    <fullyQualifiedTypeName name="java.lang.Override"/>
     <fullyQualifiedTypeName name="java.net.PasswordAuthentication"/>
     <fullyQualifiedTypeName name="jakarta.mail.Message"/>
     <fullyQualifiedTypeName name="jakarta.mail.internet.MimeMessage"/>
@@ -31,7 +27,6 @@
     <fullyQualifiedTypeName name="java.lang.Integer"/>
     <fullyQualifiedTypeName name="org.apache.tomcat.util.http.fileupload.FileUploadException"/>
     <fullyQualifiedTypeName name="org.apache.tomcat.util.http.fileupload.FileItem"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory"/>
     <fullyQualifiedTypeName name="org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload"/>
     <fullyQualifiedTypeName name="jakarta.servlet.annotation.MultipartConfig"/>
@@ -57,7 +52,12 @@
     <fullyQualifiedTypeName name="HoangModal.Hoang_SinhVienBo"/>
     <fullyQualifiedTypeName name="HoangController.Hoang_ThongKeController"/>
     <fullyQualifiedTypeName name="HoangModal.Hoang_ThongKeDTB"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="jakarta.servlet.RequestDispatcher"/>
     <fullyQualifiedTypeName name="java.io.File"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="modal.ThongKe.TopKhachHang"/>
+    <fullyQualifiedTypeName name="jakarta.servlet.RequestDispatcher"/>
+    <fullyQualifiedTypeName name="modal.ThongKe.ThongKeBo"/>
+    <fullyQualifiedTypeName name="modal.XacNhanMuaHang.XacNhanMuaHangDao"/>
+    <fullyQualifiedTypeName name="modal.LichSuMuaHang.LichSuMuaHangDao"/>
 </qualifiedTypeNameHistroy>

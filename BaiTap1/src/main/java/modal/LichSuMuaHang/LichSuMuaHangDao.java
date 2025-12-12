@@ -42,8 +42,9 @@ public class LichSuMuaHangDao {
 			Date ngayMua = rs.getTimestamp("NgayMua");
 			int maHoaDon = rs.getInt("MaHoaDon");
 			int maChiTietHoaDon = rs.getInt("MaChiTietHD");
+			String anh = rs.getString("anh");
 
-			lst.add(new LichSuMuaHang(makh, tensach, gia, soLuongMua, thanhTien, damua, ngayMua, maHoaDon, maChiTietHoaDon));
+			lst.add(new LichSuMuaHang(makh, tensach, gia, soLuongMua, thanhTien, damua, ngayMua, maHoaDon, maChiTietHoaDon, anh));
 		}
 		
 		// b5: đóng (các đối tượng đang mở)
@@ -123,8 +124,9 @@ public class LichSuMuaHangDao {
 			Date ngayMua = rs.getTimestamp("NgayMua");
 			int maHoaDon = rs.getInt("MaHoaDon");
 			int maChiTietHD = rs.getInt("MaChiTietHD");
+			String anh = rs.getString("anh");
 
-			chiTietHD = new LichSuMuaHang(makh, tensach, gia, soLuongMua, thanhTien, damua, ngayMua, maHoaDon, maChiTietHD);
+			chiTietHD = new LichSuMuaHang(makh, tensach, gia, soLuongMua, thanhTien, damua, ngayMua, maHoaDon, maChiTietHD, anh);
 		}
 		
 		// b5: đóng (các đối tượng đang mở)
@@ -184,8 +186,9 @@ public class LichSuMuaHangDao {
 			Date ngayMua = rs.getTimestamp("NgayMua");
 			int maHoaDon = rs.getInt("MaHoaDon");
 			int maChiTietHoaDon = rs.getInt("MaChiTietHD");
+			String anh = rs.getString("anh");
 
-			lst.add(new LichSuMuaHang(makh, tensach, gia, soLuongMua, thanhTien, damua, ngayMua, maHoaDon, maChiTietHoaDon));
+			lst.add(new LichSuMuaHang(makh, tensach, gia, soLuongMua, thanhTien, damua, ngayMua, maHoaDon, maChiTietHoaDon, anh));
 		}
 
 		// b5: đóng (các đối tượng đang mở)
@@ -275,8 +278,9 @@ public class LichSuMuaHangDao {
 			Date ngayMua = rs.getTimestamp("NgayMua");
 			int maHoaDon = rs.getInt("MaHoaDon");
 			int maChiTietHoaDon = rs.getInt("MaChiTietHD");
+			String anh = rs.getString("anh");
 
-			lst.add(new LichSuMuaHang(ma, tensach, gia, soLuongMua, thanhTien, damua, ngayMua, maHoaDon, maChiTietHoaDon));
+			lst.add(new LichSuMuaHang(makh, tensach, gia, soLuongMua, thanhTien, damua, ngayMua, maHoaDon, maChiTietHoaDon, anh));
 		}
 		
 		// b5: đóng (các đối tượng đang mở)

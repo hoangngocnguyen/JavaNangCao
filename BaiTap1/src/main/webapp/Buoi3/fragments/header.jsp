@@ -24,7 +24,7 @@
 					href="/TrangChu?q=cart">Giỏ hàng</a></li>
 
 				<c:if test="${sessionScope.ss.tendn == 'admin'}">
-					<li class="nav-item"><a class="nav-link" href="ThongKeSach">ThongKeSach</a></li>
+					<li class="nav-item"><a class="nav-link" href="/Admin">Trang admin</a></li>
 				</c:if>
 
 

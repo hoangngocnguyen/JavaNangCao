@@ -32,9 +32,9 @@ body {
 	
 	
 	<div class="content-wrapper">
-		<div class="container my-5">
-			<h2 class="mb-4 text-dark fw-bold text-center">
-				<i class="fas fa-chart-line me-2 text-success"></i> Báo Cáo Doanh
+		<div class="container">
+			<h2 class="mt-3 mb-4 text-dark fw-bold text-center">
+				<i class="fas fa-chart-line me-2 text-primary"></i> Báo Cáo Doanh
 				Thu 3 Tháng Gần Nhất
 			</h2>
 			<hr>

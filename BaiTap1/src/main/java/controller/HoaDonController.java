@@ -53,7 +53,7 @@ public class HoaDonController extends HttpServlet {
 			response.sendRedirect("/DangNhap");
 
 			// Lưu trang trước đó vào session
-			session.setAttribute("page", "/GioHang");
+			session.setAttribute("pagePrev", "/GioHang");
 			return;
 		}
 

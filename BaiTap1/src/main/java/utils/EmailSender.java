@@ -9,8 +9,8 @@ import modal.HoaDon.ThongBaoDatHang;
 
 public class EmailSender {
 	// Thay thế bằng email và MẬT KHẨU ỨNG DỤNG của bạn
-	private static final String SENDER_EMAIL = "23T1080015@husc.edu.vn";
-	private static final String APP_PASSWORD = "fhlcplfgsqmplhqj";
+	private static final String SENDER_EMAIL = "nguyenhoang19112005@gmail.com";
+	private static final String APP_PASSWORD = "qrdgoafolxeumbhv";
 
 	public static void sendEmail(String recipientEmail, String subject, String content) {
 		// Thiết lập các thuộc tính SMTP (Simple mail transfer protocol - giao thức duy

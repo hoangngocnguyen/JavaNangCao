@@ -44,7 +44,7 @@ public class ThanhToanController extends HttpServlet {
 		// Nếu chưa đăng nhập -> bắt đăng nhập
 		if (kh == null) {
 			// Ghi lại page hiện tại để sau khi login sẽ quay lại
-			session.setAttribute("page", "/ThanhToan");
+			session.setAttribute("pagePrev", "/ThanhToan");
 			response.sendRedirect("/DangNhap");
 			return;
 		}

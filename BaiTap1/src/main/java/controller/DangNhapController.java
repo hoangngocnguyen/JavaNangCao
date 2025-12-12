@@ -78,12 +78,12 @@ public class DangNhapController extends HttpServlet {
 					request.setAttribute("password", password);
 					
 					if (kh.getTendn().equals("admin")) {
-						response.sendRedirect("/HomNay");
+						response.sendRedirect("/Admin");
 						return;
 					}
 					
 					// Quay lại trang trước đó nếu có
-					String page = (String) session.getAttribute("page");
+					String page = (String) session.getAttribute("pagePrev");
 					if (page != null) {
 						response.sendRedirect(page);
 						return;

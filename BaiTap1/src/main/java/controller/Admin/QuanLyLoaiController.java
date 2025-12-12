@@ -39,7 +39,7 @@ public class QuanLyLoaiController extends HttpServlet {
 		HttpSession session = request.getSession();
 		KhachHang kh = (KhachHang) session.getAttribute("ss");
 		if (kh == null) {
-			session.setAttribute("page", "/QuanLyLoai");
+			session.setAttribute("pagePrev", "/QuanLyLoai");
 			response.sendRedirect("/DangNhap");
 
 			return;
@@ -47,7 +47,7 @@ public class QuanLyLoaiController extends HttpServlet {
 
 		if (!"admin".equals(kh.getTendn())) {
 			// Về trang đăng nhập, ghi lại trang hiện tại
-			session.setAttribute("page", "/QuanLyLoai");
+			session.setAttribute("pagePrev", "/QuanLyLoai");
 			response.sendRedirect("/DangNhap");
 
 			return;

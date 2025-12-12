@@ -50,7 +50,7 @@ public class SuaLoaiController extends HttpServlet {
 		// Trang này chỉ admin vào được
 		KhachHang kh = (KhachHang) session.getAttribute("ss");
 		if (kh == null) {
-			session.setAttribute("page", "/QuanLyDonHang");
+			session.setAttribute("pagePrev", "/QuanLyDonHang");
 			response.sendRedirect("/DangNhap");
 
 			return;
@@ -58,7 +58,7 @@ public class SuaLoaiController extends HttpServlet {
 
 		if (!"admin".equals(kh.getTendn())) {
 			// Về trang đăng nhập, ghi lại trang hiện tại
-			session.setAttribute("page", "/QuanLyDonHang");
+			session.setAttribute("pagePrev", "/QuanLyDonHang");
 			response.sendRedirect("/DangNhap");
 
 			return;

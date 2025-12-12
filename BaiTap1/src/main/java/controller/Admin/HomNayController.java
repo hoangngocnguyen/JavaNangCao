@@ -35,7 +35,7 @@ public class HomNayController extends HttpServlet {
 		HttpSession session = request.getSession();
 		KhachHang kh = (KhachHang) session.getAttribute("ss");
 		if (kh == null) {
-			session.setAttribute("page", "/HomNay");
+			session.setAttribute("pagePrev", "/HomNay");
 			response.sendRedirect("/DangNhap");
 
 			return;
@@ -43,7 +43,7 @@ public class HomNayController extends HttpServlet {
 
 		if (!"admin".equals(kh.getTendn())) {
 			// Về trang đăng nhập, ghi lại trang hiện tại
-			session.setAttribute("page", "/HomNay");
+			session.setAttribute("pagePrev", "/HomNay");
 			response.sendRedirect("/DangNhap");
 
 			return;

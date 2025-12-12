@@ -12,7 +12,16 @@ public class LichSuMuaHang {
 	private Date ngayMua;
 	private int maHoaDon;
 	private int maChiTietHoaDon;
+	private String anh;
 	
+	
+	
+	public String getAnh() {
+		return anh;
+	}
+	public void setAnh(String anh) {
+		this.anh = anh;
+	}
 	public int getMakh() {
 		return makh;
 	}
@@ -73,8 +82,12 @@ public class LichSuMuaHang {
 	}
 	
 	
+	public LichSuMuaHang() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public LichSuMuaHang(int makh, String tensach, int gia, int soLuongMua, int thanhTien, boolean damua, Date ngayMua,
-			int maHoaDon, int maChiTietHoaDon) {
+			int maHoaDon, int maChiTietHoaDon, String anh) {
 		super();
 		this.makh = makh;
 		this.tensach = tensach;
@@ -85,10 +98,7 @@ public class LichSuMuaHang {
 		this.ngayMua = ngayMua;
 		this.maHoaDon = maHoaDon;
 		this.maChiTietHoaDon = maChiTietHoaDon;
-	}
-	public LichSuMuaHang() {
-		super();
-		// TODO Auto-generated constructor stub
+		this.anh = anh;
 	}
 	
 	

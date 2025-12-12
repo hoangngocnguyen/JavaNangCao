@@ -88,17 +88,17 @@ body {
 		</a>
 
 		<ul class="nav nav-pills flex-column mb-auto">
-			<li class="nav-item"><a href="/HomNay"
-				class="nav-link" aria-current="page"> <i
-					class="fas fa-chart-line me-2"></i> Ngày hôm nay
+			<li class="nav-item"><a href="/HomNay" class="nav-link"
+				aria-current="page"> <i class="fas fa-chart-line me-2"></i> Ngày
+					hôm nay
 			</a></li>
-			<li class="nav-item"><a href="/DoanhThu"
-				class="nav-link" aria-current="page"> <i
-					class="fas fa-chart-line me-2"></i> Thống kê doanh thu
+			<li class="nav-item"><a href="/DoanhThu" class="nav-link"
+				aria-current="page"> <i class="fas fa-chart-line me-2"></i>
+					Thống kê doanh thu
 			</a></li>
-			<li class="nav-item"><a href="/ThongKeKhoSach"
-				class="nav-link" aria-current="page"> <i
-					class="fas fa-chart-line me-2"></i> Thống kê kho sách
+			<li class="nav-item"><a href="/ThongKeKhoSach" class="nav-link"
+				aria-current="page"> <i class="fas fa-chart-line me-2"></i>
+					Thống kê kho sách
 			</a></li>
 			<li><a href="/QuanLyDonHang" class="nav-link"> <i
 					class="fas fa-receipt me-2"></i> Quản lý đơn hàng
@@ -106,9 +106,8 @@ body {
 			<li><a href="/QuanLySach" class="nav-link"> <i
 					class="fas fa-book-open me-2"></i> Quản lý sách
 			</a></li>
-			<li><a href="/QuanLyLoai" class="nav-link"> <i
-					class="fas fa-book-open me-2"></i> Quản lý loại
-			</a></li>
+			<li><a href="/QuanLyLoai" class="nav-link"><i
+					class="fas fa-tags me-2"></i> Quản lý loại </a></li>
 			<li><a href="/ChamSocKhachHang" class="nav-link"> <i
 					class="fas fa-users me-2"></i> Chăm sóc khách hàng
 			</a></li>

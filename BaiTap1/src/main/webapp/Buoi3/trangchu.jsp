@@ -48,6 +48,9 @@
 	text-overflow: ellipsis;
 	min-height: 2.8em; /* Đảm bảo chiều cao tối thiểu cho 2 dòng */
 }
+.collapse.show {
+	display: block !important;
+}
 </style>
 </head>
 
@@ -57,7 +60,17 @@
 	<div class="container mt-4">
 		<div class="row">
 			<div class="col-sm-3 mb-4">
-				<div class="card shadow-sm">
+
+				<div class="d-block d-sm-none mb-3">
+					<button class="btn btn-primary w-100 fw-bold" type="button"
+						data-bs-toggle="collapse" data-bs-target="#categoryCollapse"
+						aria-expanded="false" aria-controls="categoryCollapse">
+						<i class="fas fa-bars me-2"></i> Xem Danh Mục Sách
+					</button>
+				</div>
+
+				<div class="card shadow-sm d-none d-sm-block collapse"
+					id="categoryCollapse">
 
 					<div class="card-header bg-primary text-white fw-bold">
 						<i class="fas fa-list me-2"></i> Danh Mục Sách
@@ -75,7 +88,7 @@
 								<c:forEach var="L" items="${dsLoai}">
 									<li
 										class="list-group-item list-group-item-action d-flex justify-content-between align-items-center 
-							${maLoai == L.maLoai ? 'text-primary fw-bold' : ''}	"
+                            ${maLoai == L.maLoai ? 'text-primary fw-bold' : ''}	"
 										onclick="setCategory('${L.maLoai}')" style="cursor: pointer;">
 
 										${L.tenLoai}</li>
@@ -99,7 +112,7 @@
 							</c:if>
 
 							<c:forEach var="sach" items="${dsSach}">
-								<div class="col-sm-4 col-md-3 mb-4">
+								<div class="col-sm-4 col-md-3 col-6 mb-4">
 									<div class="card h-100 shadow-sm">
 
 										<div

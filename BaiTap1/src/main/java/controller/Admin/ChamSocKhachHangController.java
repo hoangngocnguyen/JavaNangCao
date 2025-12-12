@@ -36,7 +36,7 @@ public class ChamSocKhachHangController extends HttpServlet {
 		// Trang này chỉ admin vào được
 		KhachHang kh = (KhachHang) session.getAttribute("ss");
 		if (kh == null) {
-			session.setAttribute("page", "/ChamSocKhachHang");
+			session.setAttribute("pagePrev", "/ChamSocKhachHang");
 			response.sendRedirect("/DangNhap");
 
 			return;
@@ -44,7 +44,7 @@ public class ChamSocKhachHangController extends HttpServlet {
 
 		if (!"admin".equals(kh.getTendn())) {
 			// Về trang đăng nhập, ghi lại trang hiện tại
-			session.setAttribute("page", "/ChamSocKhachHang");
+			session.setAttribute("pagePrev", "/ChamSocKhachHang");
 			response.sendRedirect("/DangNhap");
 
 			return;

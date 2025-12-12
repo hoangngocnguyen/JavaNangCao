@@ -33,9 +33,9 @@ body {
 	<jsp:include page="sidebar-admin.jsp"></jsp:include>
 
 	<div class="content-wrapper">
-		<div class="container my-5">
-			<h2 class="mb-4 text-dark fw-bold">
-				<i class="fas fa-tags me-2 text-info"></i> Quản Lý Danh Mục Loại
+		<div class="container">
+			<h2 class="mt-3 mb-4 text-dark">
+				<i class="fas fa-tags me-2 text-info"></i> Quản Lý Loại
 				Sách
 			</h2>
 

@@ -94,9 +94,9 @@ body {
 	</c:if>
 
 	<div class="content-wrapper">
-		<div class="container my-5">
-			<h2 class="mt-3 mb-4 text-primary">
-				<i class="fas fa-receipt"></i> Quản Lý Đơn Hàng Cần Xử Lý
+		<div class="container">
+			<h2 class="mt-3 mb-4">
+				<i class="fas fa-receipt text-primary"></i> Quản Lý Đơn Hàng Cần Xử Lý
 			</h2>
 			<form action="/QuanLyDonHang" method="get" id="QuanLyDonHangForm"
 				class="d-flex me-auto mb-4" role="search">

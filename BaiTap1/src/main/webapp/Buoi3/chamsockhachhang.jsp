@@ -49,9 +49,8 @@ body {
 
 	<div class="content-wrapper p-4">
 		<div class="container-fluid">
-
-			<h2 class="mb-4 text-primary fw-bold">
-				<i class="fas fa-users me-2"></i> Danh Sách Khách Hàng & Xếp Hạng
+			<h2 class="mt-3 mb-4">
+				<i class="fas fa-users me-2 text-primary"></i> Danh Sách Khách Hàng & Xếp Hạng
 			</h2>
 
 			<div class="row mb-4">
@@ -99,21 +98,24 @@ body {
 									<p class="text-muted mb-0">Mã KH: ${kh.maKH}</p>
 								</td>
 
-								<td>
-									<c:if test="${not empty kh.sodt}">
+								<td><c:if test="${not empty kh.sodt}">
 										<p class="text-success fw-semibold mb-1">
 											<i class="fas fa-phone-alt me-1"></i> ${kh.sodt}
 										</p>
-									</c:if>
-									<c:if test="${empty kh.sodt}">
-										<p class="text-success fw-semibold mb-1">
-											Chưa có số điện thoại
-										</p>
+									</c:if> <c:if test="${empty kh.sodt}">
+										<p class="text-success fw-semibold mb-1">Chưa có số điện
+											thoại</p>
 									</c:if>
 
 									<p class="text-muted mb-0">${kh.email}</p></td>
 
-								<td class="text-wrap">${kh.diaChi}</td>
+								<td class="text-wrap"><c:if test="${not empty kh.diaChi}">
+										<p class="text-success fw-semibold mb-1">
+											<i class="fas fa-phone-alt me-1"></i> ${kh.diaChi}
+										</p>
+									</c:if> <c:if test="${empty kh.diaChi}">
+										<p class="text-success fw-semibold mb-1">Địa chỉ trống</p>
+									</c:if></td>
 
 								<td class="text-end"><span
 									class="${isVIP ? 'text-danger fw-bolder' : 'text-primary fw-bold'}">
@@ -125,12 +127,13 @@ body {
 
 								<td class="text-center">${kh.thang}</td>
 
-								<td class="text-center">
-								<a href="/ChamSocKhachHang?makh=${kh.maKH }"
+								<td class="text-center"><a
+									href="/ChamSocKhachHang?makh=${kh.maKH }"
 									class="btn btn-sm btn-outline-info me-1" title="Xem chi tiết">
 										<i class="fas fa-eye"></i>
-								</a> <a href="mailto:${kh.email}" class="btn btn-sm btn-outline-primary"
-									title="Gửi email"> <i class="fas fa-envelope"></i>
+								</a> <a href="mailto:${kh.email}"
+									class="btn btn-sm btn-outline-primary" title="Gửi email"> <i
+										class="fas fa-envelope"></i>
 								</a></td>
 							</tr>
 						</c:forEach>
