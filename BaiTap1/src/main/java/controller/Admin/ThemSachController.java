@@ -66,17 +66,7 @@ public class ThemSachController extends HttpServlet {
 		LoaiDao lDao = new LoaiDao();
 
 		// Nội dung client gửi lên
-		if (request.getContentLength() <= 0) {// Chay lan dau chua co du lieu
-
-			try {
-				request.setAttribute("dsLoai", lDao.getLoai());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			RequestDispatcher rd = request.getRequestDispatcher("Buoi3/themsach.jsp");
-			rd.forward(request, response);
-		} else {
-
+		if (request.getContentLength() > 0) {
 			response.setContentType("text/html;charset=UTF-8");
 
 			// 1. Lấy đường dẫn thư mục "files" (giống như logic cũ)
@@ -142,7 +132,7 @@ public class ThemSachController extends HttpServlet {
 				// Tiến hành thêm vào DB
 				System.out.println("maloai: " + maLoai + "-" + maSach);
 				SachDao sDao = new SachDao();
-				
+
 				int rs = sDao.themSach(maSach, tenSach, soLuong, gia, maLoai, soTap, anh, tacGia);
 				if (rs == 1) {
 					System.out.println("Thêm sách thành công");
@@ -152,20 +142,24 @@ public class ThemSachController extends HttpServlet {
 				} else {
 					System.out.println("Thêm sách thất bại");
 				}
+				
+				return;
 
 			} catch (Exception e) {
 				System.out.println("Lỗi Upload: " + e.getMessage());
-				
+
 				request.setAttribute("errorMessage", "Có lỗi khi thêm sách: Mã sách đã tồn tại!");
-				
-				// Quay lại trang để báo lỗi
-				RequestDispatcher rd = request.getRequestDispatcher("Buoi3/themsach.jsp");
-				rd.forward(request, response);
 			}
 		}
-		
-		
-		
+
+		try {
+			request.setAttribute("dsLoai", lDao.getLoai());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		RequestDispatcher rd = request.getRequestDispatcher("Buoi3/themsach.jsp");
+		rd.forward(request, response);
+
 	}
 
 	/**
