@@ -6,7 +6,6 @@ INDEX VERSION 1.4+E:\HocTap\ChinhKhoa\Nam3\HK1\JavaNangCao\Projects\.metadata\.p
 1525107692.index
 2261480412.index
 1209689405.index
-1209689405.index
 2756073542.index
 1509736330.index
 965234668.index

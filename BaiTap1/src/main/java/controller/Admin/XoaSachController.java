@@ -55,12 +55,13 @@ public class XoaSachController extends HttpServlet {
 		}
 
 		if (!"admin".equals(kh.getTendn())) {
-			// Về trang đăng nhập, ghi lại trang hiện tại
-			session.setAttribute("pagePrev", "/QuanLyDonHang");
-			response.sendRedirect("/DangNhap");
+			// Nếu là user thì về trang chủ
+			response.sendRedirect("/TrangChu");
 
 			return;
 		}
+		
+		
 		// Chay lan dau chua co du lieu
 		// Gửi về danh sách loại để gắn vào form + sách
 		SachDao sDao = new SachDao();

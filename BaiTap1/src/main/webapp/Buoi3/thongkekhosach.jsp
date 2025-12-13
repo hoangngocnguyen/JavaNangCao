@@ -38,7 +38,7 @@
 	<jsp:include page="sidebar-admin.jsp"></jsp:include>
 
 	<div class="content-wrapper">
-		<div class="container-fluid p-0">
+		<div class="container p-0">
 			<h2 class="mt-3 mb-4 text-dark">
 				<i class="fas fa-chart-line text-primary me-2"></i>Thống Kê Kho Sách
 			</h2>

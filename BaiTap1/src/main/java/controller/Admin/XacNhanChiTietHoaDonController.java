@@ -47,9 +47,8 @@ public class XacNhanChiTietHoaDonController extends HttpServlet {
 		}
 
 		if (!"admin".equals(kh.getTendn())) {
-			// Về trang đăng nhập, ghi lại trang hiện tại
-			session.setAttribute("pagePrev", "/QuanLyDonHang");
-			response.sendRedirect("/DangNhap");
+			// Nếu là user thì về trang chủ
+			response.sendRedirect("/TrangChu");
 
 			return;
 		}

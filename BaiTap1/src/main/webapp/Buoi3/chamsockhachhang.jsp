@@ -48,7 +48,7 @@ body {
 	<jsp:include page="sidebar-admin.jsp"></jsp:include>
 
 	<div class="content-wrapper p-4">
-		<div class="container-fluid">
+		<div class="container">
 			<h2 class="mt-3 mb-4">
 				<i class="fas fa-users me-2 text-primary"></i> Danh Sách Khách Hàng & Xếp Hạng
 			</h2>

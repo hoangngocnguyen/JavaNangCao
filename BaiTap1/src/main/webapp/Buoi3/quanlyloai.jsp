@@ -44,7 +44,7 @@ body {
 					<form action="/QuanLyLoai" method="get"
 						id="searchAndPaginationForm"
 						class="d-flex align-items-center bg-white search-form-container p-2">
-						<i class="fas fa-search fs-5 text-muted me-3"></i> <input
+						<i class="fas fa-search fs-5 text-muted ms-1 me-3"></i> <input
 							class="form-control me-3 border-0" type="search"
 							name="search" id="searchInput"
 							placeholder="Tìm kiếm theo Mã hoặc Tên Loại Sách..."

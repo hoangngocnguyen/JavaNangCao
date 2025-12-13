@@ -56,9 +56,8 @@ public class ThemSachController extends HttpServlet {
 		}
 
 		if (!"admin".equals(kh.getTendn())) {
-			// Về trang đăng nhập, ghi lại trang hiện tại
-			session.setAttribute("pagePrev", "/QuanLyDonHang");
-			response.sendRedirect("/DangNhap");
+			// Nếu là user thì về trang chủ
+			response.sendRedirect("/TrangChu");
 
 			return;
 		}
@@ -119,13 +118,6 @@ public class ThemSachController extends HttpServlet {
 						} else if ("txtgia".equals(partName)) {
 							gia = Integer.parseInt(fieldValue);
 						}
-//							else if ("txtxoa".equals(partName)) {
-//							// Thực hiện test xóa một file
-//							String dirUrl = request.getServletContext().getRealPath("/image_sach");
-//							File deleteFile = new File(dirUrl + "//Gemini_Generated_Image_lp4omglp4omglp4o.png");
-//							deleteFile.delete();
-//							System.out.println("Xóa thành công");
-//						}
 					} else {
 						// Đây là một File được gửi lên (có tên file)
 						String fileName = part.getSubmittedFileName(); // Lấy tên file gốc
@@ -150,6 +142,7 @@ public class ThemSachController extends HttpServlet {
 				// Tiến hành thêm vào DB
 				System.out.println("maloai: " + maLoai + "-" + maSach);
 				SachDao sDao = new SachDao();
+				
 				int rs = sDao.themSach(maSach, tenSach, soLuong, gia, maLoai, soTap, anh, tacGia);
 				if (rs == 1) {
 					System.out.println("Thêm sách thành công");
@@ -161,10 +154,18 @@ public class ThemSachController extends HttpServlet {
 				}
 
 			} catch (Exception e) {
-				response.getWriter().println("Lỗi Upload: " + e.getMessage());
-				e.printStackTrace();
+				System.out.println("Lỗi Upload: " + e.getMessage());
+				
+				request.setAttribute("errorMessage", "Có lỗi khi thêm sách: Mã sách đã tồn tại!");
+				
+				// Quay lại trang để báo lỗi
+				RequestDispatcher rd = request.getRequestDispatcher("Buoi3/themsach.jsp");
+				rd.forward(request, response);
 			}
 		}
+		
+		
+		
 	}
 
 	/**

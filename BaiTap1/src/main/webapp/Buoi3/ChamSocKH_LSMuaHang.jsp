@@ -112,7 +112,7 @@ body {
                                         <td class="fw-medium">${item.tensach}</td>
                                         
                                         <td class="text-center small">
-                                            <fmt:formatDate value="${item.ngayMua}" pattern="dd/MM HH:mm"/>
+                                            <fmt:formatDate value="${item.ngayMua}" pattern="dd/MM/yyyy HH:mm"/>
                                         </td>
                                         
                                         <td class="text-end">

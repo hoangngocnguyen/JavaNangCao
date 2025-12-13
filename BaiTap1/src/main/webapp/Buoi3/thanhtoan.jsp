@@ -93,7 +93,7 @@
                         <i class="fas fa-history me-2"></i> Lịch Sử Mua Hàng
                     </a>
                     
-                    <a href="/" class="btn btn-success btn-lg">
+                    <a href="/TrangChu" class="btn btn-success btn-lg">
                         <i class="fas fa-home me-2"></i> Về Trang Chủ
                     </a>
                 </div>

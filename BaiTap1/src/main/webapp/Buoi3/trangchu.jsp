@@ -112,7 +112,7 @@
 							</c:if>
 
 							<c:forEach var="sach" items="${dsSach}">
-								<div class="col-sm-4 col-md-3 col-6 mb-4">
+								<div class="col-md-3 col-6 mb-4">
 									<div class="card h-100 shadow-sm">
 
 										<div

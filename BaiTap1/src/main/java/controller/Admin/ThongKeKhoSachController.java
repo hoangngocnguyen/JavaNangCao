@@ -37,16 +37,15 @@ public class ThongKeKhoSachController extends HttpServlet {
 		// Trang này chỉ admin vào được
 		KhachHang kh = (KhachHang) session.getAttribute("ss");
 		if (kh == null) {
-			session.setAttribute("pagePrev", "/QuanLyDonHang");
+			session.setAttribute("pagePrev", "/ThongKeKhoSach");
 			response.sendRedirect("/DangNhap");
 
 			return;
 		}
 
 		if (!"admin".equals(kh.getTendn())) {
-			// Về trang đăng nhập, ghi lại trang hiện tại
-			session.setAttribute("pagePrev", "/QuanLyDonHang");
-			response.sendRedirect("/DangNhap");
+			// Nếu là user thì về trang chủ
+			response.sendRedirect("/TrangChu");
 
 			return;
 		}
